@@ -15,7 +15,7 @@ export class Start extends React.Component<IStartProps, {}> {
       <div id="start">
         <h1 className="welcome-title">Welcome to GitHub&nbsp;Desktop</h1>
         <p className="welcome-text">
-          GitHub Desktop is a seamless way to contribute to projects on GitHub
+          Wevolver Desktop is a seamless way to contribute to projects on GitHub
           and GitHub Enterprise. Sign in below to get started with your existing
           projects.
         </p>

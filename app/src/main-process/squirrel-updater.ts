@@ -136,7 +136,7 @@ async function updateShortcut(): Promise<void> {
     const desktopShortcutPath = Path.join(
       homeDirectory,
       'Desktop',
-      'GitHub Desktop.lnk'
+      'Wevolver Desktop.lnk'
     )
     const exists = await pathExists(desktopShortcutPath)
     const locations: ShortcutLocations = exists

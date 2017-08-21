@@ -11,7 +11,7 @@ interface IEmail {
   /**
    * Represents whether GitHub has confirmed the user has access to this
    * email address. New users require a verified email address before
-   * they can sign into GitHub Desktop.
+   * they can sign into Wevolver Desktop.
    */
   readonly verified: boolean
   /**
@@ -75,11 +75,11 @@ export class AccountsStore {
     await this.loadingPromise
 
     let updated = account
-    try {
-      updated = await updatedAccount(account)
-    } catch (e) {
-      log.warn(`Failed to fetch user ${account.login}`, e)
-    }
+    // try {
+    //   updated = await updatedAccount(account)
+    // } catch (e) {
+    //   log.warn(`Failed to fetch user ${account.login}`, e)
+    // }
 
     await this.secureStore.setItem(
       getKeyForAccount(updated),

@@ -13,8 +13,8 @@ import {
   IRepositoryIdentifier,
 } from '../../lib/remote-parsing'
 import { pathExists } from '../../lib/file-system'
-import { findAccountForRemoteURL } from '../../lib/find-account'
-import { API } from '../../lib/api'
+// import { findAccountForRemoteURL } from '../../lib/find-account'
+// import { API } from '../../lib/api'
 import { Dialog, DialogContent, DialogError, DialogFooter } from '../dialog'
 import { Monospaced } from '../lib/monospaced'
 
@@ -219,17 +219,17 @@ export class CloneRepository extends React.Component<
    * the repository alias to the clone URL.
    */
   private async resolveCloneURL(): Promise<string | null> {
-    const identifier = this.state.lastParsedIdentifier
+    // const identifier = this.state.lastParsedIdentifier
     let url = this.state.url
 
-    const account = await findAccountForRemoteURL(url, this.props.accounts)
-    if (identifier && account) {
-      const api = API.fromAccount(account)
-      const repo = await api.fetchRepository(identifier.owner, identifier.name)
-      if (repo) {
-        url = repo.clone_url
-      }
-    }
+    // const account = await findAccountForRemoteURL(url, this.props.accounts)
+    // if (identifier && account) {
+    //   const api = API.fromAccount(account)
+    //   const repo = await api.fetchRepository(identifier.owner, identifier.name)
+    //   if (repo) {
+    //     url = repo.clone_url
+    //   }
+    // }
 
     return url
   }

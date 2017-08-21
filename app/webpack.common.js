@@ -165,7 +165,7 @@ const crashConfig = merge({}, commonConfig, {
   target: 'electron-renderer',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'GitHub Desktop',
+      title: 'Wevolver Desktop',
       filename: 'crash.html',
       chunks: ['crash'],
     }),

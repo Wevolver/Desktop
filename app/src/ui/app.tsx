@@ -44,7 +44,7 @@ import { Preferences } from './preferences'
 import { Account } from '../models/account'
 import { TipState } from '../models/tip'
 import { shouldRenderApplicationMenu } from './lib/features'
-import { Merge } from './merge-branch'
+// import { Merge } from './merge-branch'
 import { RepositorySettings } from './repository-settings'
 import { AppError } from './app-error'
 import { MissingRepository } from './missing-repository'
@@ -254,14 +254,12 @@ export class App extends React.Component<IAppProps, IAppState> {
         return this.openCurrentRepositoryWorkingDirectory()
       case 'update-branch':
         return this.updateBranch()
-      case 'merge-branch':
-        return this.mergeBranch()
+      // case 'merge-branch':
+      //   return this.mergeBranch()
       case 'show-repository-settings':
         return this.showRepositorySettings()
-      case 'view-repository-on-github':
-        return this.viewRepositoryOnGitHub()
-      case 'compare-branch':
-        return this.compareBranch()
+      // case 'compare-branch':
+      //   return this.compareBranch()
       case 'open-in-shell':
         return this.openCurrentRepositoryInShell()
       case 'clone-repository':
@@ -270,8 +268,6 @@ export class App extends React.Component<IAppProps, IAppState> {
         return this.showAbout()
       case 'boomtown':
         return this.boomtown()
-      case 'create-pull-request':
-        return this.openPullRequest()
       case 'install-cli':
         return this.props.dispatcher.installCLI()
       case 'open-external-editor':
@@ -327,44 +323,44 @@ export class App extends React.Component<IAppProps, IAppState> {
       return
     }
 
-    this.props.dispatcher.mergeBranch(state.repository, defaultBranch.name)
+    // this.props.dispatcher.mergeBranch(state.repository, defaultBranch.name)
   }
 
-  private mergeBranch() {
-    const state = this.state.selectedState
-    if (!state || state.type !== SelectionType.Repository) {
-      return
-    }
+  // private mergeBranch() {
+  //   const state = this.state.selectedState
+  //   if (!state || state.type !== SelectionType.Repository) {
+  //     return
+  //   }
 
-    this.props.dispatcher.showPopup({
-      type: PopupType.MergeBranch,
-      repository: state.repository,
-    })
-  }
+  //   this.props.dispatcher.showPopup({
+  //     type: PopupType.MergeBranch,
+  //     repository: state.repository,
+  //   })
+  // }
 
-  private compareBranch() {
-    const htmlURL = this.getCurrentRepositoryGitHubURL()
-    if (!htmlURL) {
-      return
-    }
+  // private compareBranch() {
+  //   const htmlURL = this.getCurrentRepositoryGitHubURL()
+  //   if (!htmlURL) {
+  //     return
+  //   }
 
-    const state = this.state.selectedState
-    if (!state || state.type !== SelectionType.Repository) {
-      return
-    }
+  //   const state = this.state.selectedState
+  //   if (!state || state.type !== SelectionType.Repository) {
+  //     return
+  //   }
 
-    const branchTip = state.state.branchesState.tip
-    if (
-      branchTip.kind !== TipState.Valid ||
-      !branchTip.branch.upstreamWithoutRemote
-    ) {
-      return
-    }
+  //   const branchTip = state.state.branchesState.tip
+  //   if (
+  //     branchTip.kind !== TipState.Valid ||
+  //     !branchTip.branch.upstreamWithoutRemote
+  //   ) {
+  //     return
+  //   }
 
-    const compareURL = `${htmlURL}/compare/${branchTip.branch
-      .upstreamWithoutRemote}`
-    this.props.dispatcher.openInBrowser(compareURL)
-  }
+  //   const compareURL = `${htmlURL}/compare/${branchTip.branch
+  //     .upstreamWithoutRemote}`
+  //   this.props.dispatcher.openInBrowser(compareURL)
+  // }
 
   private openCurrentRepositoryWorkingDirectory() {
     const state = this.state.selectedState
@@ -676,29 +672,29 @@ export class App extends React.Component<IAppProps, IAppState> {
     })
   }
 
-  private viewRepositoryOnGitHub() {
-    const url = this.getCurrentRepositoryGitHubURL()
+  // private viewRepositoryOnGitHub() {
+  //   const url = this.getCurrentRepositoryGitHubURL()
 
-    if (url) {
-      this.props.dispatcher.openInBrowser(url)
-      return
-    }
-  }
+  //   if (url) {
+  //     this.props.dispatcher.openInBrowser(url)
+  //     return
+  //   }
+  // }
 
   /** Returns the URL to the current repository if hosted on GitHub */
-  private getCurrentRepositoryGitHubURL() {
-    const repository = this.getRepository()
+  // private getCurrentRepositoryGitHubURL() {
+  //   const repository = this.getRepository()
 
-    if (
-      !repository ||
-      repository instanceof CloningRepository ||
-      !repository.gitHubRepository
-    ) {
-      return null
-    }
+  //   if (
+  //     !repository ||
+  //     repository instanceof CloningRepository ||
+  //     !repository.gitHubRepository
+  //   ) {
+  //     return null
+  //   }
 
-    return repository.gitHubRepository.htmlURL
-  }
+  //   return repository.gitHubRepository.htmlURL
+  // }
 
   private openCurrentRepositoryInShell() {
     const repository = this.getRepository()
@@ -877,26 +873,26 @@ export class App extends React.Component<IAppProps, IAppState> {
             onDismissed={this.onPopupDismissed}
           />
         )
-      case PopupType.MergeBranch: {
-        const repository = popup.repository
-        const state = this.props.appStore.getRepositoryState(repository)
+      // case PopupType.MergeBranch: {
+      //   const repository = popup.repository
+      //   const state = this.props.appStore.getRepositoryState(repository)
 
-        const tip = state.branchesState.tip
-        const currentBranch = tip.kind === TipState.Valid ? tip.branch : null
+      //   const tip = state.branchesState.tip
+      //   const currentBranch = tip.kind === TipState.Valid ? tip.branch : null
 
-        return (
-          <Merge
-            key="merge-branch"
-            dispatcher={this.props.dispatcher}
-            repository={repository}
-            allBranches={state.branchesState.allBranches}
-            defaultBranch={state.branchesState.defaultBranch}
-            recentBranches={state.branchesState.recentBranches}
-            currentBranch={currentBranch}
-            onDismissed={this.onPopupDismissed}
-          />
-        )
-      }
+      //   return (
+      //     <Merge
+      //       key="merge-branch"
+      //       dispatcher={this.props.dispatcher}
+      //       repository={repository}
+      //       allBranches={state.branchesState.allBranches}
+      //       defaultBranch={state.branchesState.defaultBranch}
+      //       recentBranches={state.branchesState.recentBranches}
+      //       currentBranch={currentBranch}
+      //       onDismissed={this.onPopupDismissed}
+      //     />
+      //   )
+      // }
       case PopupType.RepositorySettings: {
         const repository = popup.repository
         const state = this.props.appStore.getRepositoryState(repository)
@@ -1306,41 +1302,41 @@ export class App extends React.Component<IAppProps, IAppState> {
     })
   }
 
-  private openPullRequest() {
-    const selection = this.state.selectedState
+  // private openPullRequest() {
+  //   const selection = this.state.selectedState
 
-    if (!selection || selection.type !== SelectionType.Repository) {
-      return
-    }
+  //   if (!selection || selection.type !== SelectionType.Repository) {
+  //     return
+  //   }
 
-    const tip = selection.state.branchesState.tip
+  //   const tip = selection.state.branchesState.tip
 
-    if (tip.kind !== TipState.Valid) {
-      return
-    }
+  //   if (tip.kind !== TipState.Valid) {
+  //     return
+  //   }
 
-    const dispatcher = this.props.dispatcher
-    const repository = selection.repository
-    const branch = tip.branch
-    const aheadBehind = selection.state.aheadBehind
+  //   const dispatcher = this.props.dispatcher
+  //   const repository = selection.repository
+  //   const branch = tip.branch
+  //   const aheadBehind = selection.state.aheadBehind
 
-    if (!aheadBehind) {
-      dispatcher.showPopup({
-        type: PopupType.PushBranchCommits,
-        repository,
-        branch,
-      })
-    } else if (aheadBehind.ahead > 0) {
-      dispatcher.showPopup({
-        type: PopupType.PushBranchCommits,
-        repository,
-        branch,
-        unPushedCommits: aheadBehind.ahead,
-      })
-    } else {
-      this.openPullRequestOnGithub(repository, branch)
-    }
-  }
+  //   if (!aheadBehind) {
+  //     dispatcher.showPopup({
+  //       type: PopupType.PushBranchCommits,
+  //       repository,
+  //       branch,
+  //     })
+  //   } else if (aheadBehind.ahead > 0) {
+  //     dispatcher.showPopup({
+  //       type: PopupType.PushBranchCommits,
+  //       repository,
+  //       branch,
+  //       unPushedCommits: aheadBehind.ahead,
+  //     })
+  //   } else {
+  //     this.openPullRequestOnGithub(repository, branch)
+  //   }
+  // }
 
   private openPullRequestOnGithub = (
     repository: Repository,

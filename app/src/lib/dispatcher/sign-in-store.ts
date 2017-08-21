@@ -27,7 +27,7 @@ function getUnverifiedUserErrorMessage(login: string): string {
   return `Unable to authenticate. The account ${login} is lacking a verified email address. Please sign in to GitHub.com, confirm your email address in the Emails section under Personal settings, and try again.`
 }
 
-const EnterpriseTooOldMessage = `The GitHub Enterprise version does not support GitHub Desktop. Talk to your server's administrator about upgrading to the latest version of GitHub Enterprise.`
+const EnterpriseTooOldMessage = `The GitHub Enterprise version does not support Wevolver Desktop. Talk to your server's administrator about upgrading to the latest version of GitHub Enterprise.`
 
 /**
  * An enumeration of the possible steps that the sign in
@@ -364,7 +364,7 @@ export class SignInStore {
           ...currentState,
           loading: false,
           error: new Error(
-            'A personal access token cannot be used to login to GitHub Desktop.'
+            'A personal access token cannot be used to login to Wevolver Desktop.'
           ),
         })
       } else if (response.kind === AuthorizationResponseKind.EnterpriseTooOld) {
@@ -592,7 +592,7 @@ export class SignInStore {
         case AuthorizationResponseKind.PersonalAccessTokenBlocked:
           this.emitError(
             new Error(
-              'A personal access token cannot be used to login to GitHub Desktop.'
+              'A personal access token cannot be used to login to Wevolver Desktop.'
             )
           )
           break

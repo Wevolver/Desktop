@@ -88,7 +88,8 @@ export function request(
 
   let headers: any = {
     Accept: 'application/vnd.github.v3+json, application/json',
-    'Content-Type': 'application/json',
+    // 'Content-Type': 'application/json',
+    'Content-Type': 'application/x-www-form-urlencoded',
     'User-Agent': getUserAgent(),
   }
 
@@ -101,10 +102,20 @@ export function request(
     ...customHeaders,
   }
 
+  let formDataBody: string[] = [];
+
+  if(jsonBody) {
+    let jsonBodySource:any = jsonBody;
+    for ( let key in jsonBodySource ) {
+      if(jsonBodySource.hasOwnProperty(key)) formDataBody.push(`${key}=${jsonBodySource[key]}`);
+    }
+  }
+
   const options = {
     headers,
     method,
-    body: JSON.stringify(jsonBody),
+    // body: JSON.stringify(jsonBody),
+    body: jsonBody ? formDataBody.join('&') : null
   }
 
   return fetch(url, options)

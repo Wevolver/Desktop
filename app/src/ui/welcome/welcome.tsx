@@ -46,6 +46,10 @@ export class Welcome extends React.Component<IWelcomeProps, IWelcomeState> {
     this.state = { currentStep: WelcomeStep.Start }
   }
 
+  public componentWillMount() {
+    this.done()
+  }
+  
   public componentWillReceiveProps(nextProps: IWelcomeProps) {
     this.advanceOnSuccessfulSignIn(nextProps)
   }

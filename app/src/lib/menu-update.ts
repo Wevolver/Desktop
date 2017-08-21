@@ -1,8 +1,8 @@
 import { MenuIDs } from '../main-process/menu'
 import { merge } from './merge'
 import { IAppState, SelectionType } from '../lib/app-state'
-import { Repository } from '../models/repository'
-import { CloningRepository } from './dispatcher'
+// import { Repository } from '../models/repository'
+// import { CloningRepository } from './dispatcher'
 import { TipState } from '../models/tip'
 import { updateMenuState as ipcUpdateMenuState } from '../ui/main-process-proxy'
 import { AppMenu, MenuItem } from '../models/app-menu'
@@ -54,19 +54,19 @@ class MenuStateBuilder {
   }
 }
 
-function isRepositoryHostedOnGitHub(
-  repository: Repository | CloningRepository
-) {
-  if (
-    !repository ||
-    repository instanceof CloningRepository ||
-    !repository.gitHubRepository
-  ) {
-    return false
-  }
+// function isRepositoryHostedOnGitHub(
+//   repository: Repository | CloningRepository
+// ) {
+//   if (
+//     !repository ||
+//     repository instanceof CloningRepository ||
+//     !repository.gitHubRepository
+//   ) {
+//     return false
+//   }
 
-  return repository.gitHubRepository.htmlURL !== null
-}
+//   return repository.gitHubRepository.htmlURL !== null
+// }
 
 function menuItemStateEqual(state: IMenuItemState, menuItem: MenuItem) {
   if (
@@ -82,9 +82,9 @@ function menuItemStateEqual(state: IMenuItemState, menuItem: MenuItem) {
 
 function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
   const selectedState = state.selectedState
-  const isHostedOnGitHub = selectedState
-    ? isRepositoryHostedOnGitHub(selectedState.repository)
-    : false
+  // const isHostedOnGitHub = selectedState
+  //   ? isRepositoryHostedOnGitHub(selectedState.repository)
+  //   : false
 
   let repositorySelected = false
   let onNonDefaultBranch = false
@@ -163,14 +163,14 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
       'update-branch',
       onNonDefaultBranch && hasDefaultBranch
     )
-    menuStateBuilder.setEnabled('merge-branch', onBranch)
-    menuStateBuilder.setEnabled(
-      'compare-branch',
-      isHostedOnGitHub && hasPublishedBranch
-    )
+    // menuStateBuilder.setEnabled('merge-branch', onBranch)
+    // menuStateBuilder.setEnabled(
+    //   'compare-branch',
+    //   isHostedOnGitHub && hasPublishedBranch
+    // )
 
-    menuStateBuilder.setEnabled('view-repository-on-github', isHostedOnGitHub)
-    menuStateBuilder.setEnabled('create-pull-request', isHostedOnGitHub)
+    // menuStateBuilder.setEnabled('view-repository-on-github', isHostedOnGitHub)
+    // menuStateBuilder.setEnabled('create-pull-request', isHostedOnGitHub)
     menuStateBuilder.setEnabled('push', hasRemote && !networkActionInProgress)
     menuStateBuilder.setEnabled(
       'pull',
@@ -189,15 +189,15 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
       menuStateBuilder.disable(id)
     }
 
-    menuStateBuilder.disable('view-repository-on-github')
-    menuStateBuilder.disable('create-pull-request')
+    // menuStateBuilder.disable('view-repository-on-github')
+    // menuStateBuilder.disable('create-pull-request')
 
     if (
       selectedState &&
       selectedState.type === SelectionType.MissingRepository
     ) {
       if (selectedState.repository.gitHubRepository) {
-        menuStateBuilder.enable('view-repository-on-github')
+        // menuStateBuilder.enable('view-repository-on-github')
       }
       menuStateBuilder.enable('remove-repository')
     }
@@ -205,8 +205,8 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
     menuStateBuilder.disable('rename-branch')
     menuStateBuilder.disable('delete-branch')
     menuStateBuilder.disable('update-branch')
-    menuStateBuilder.disable('merge-branch')
-    menuStateBuilder.disable('compare-branch')
+    // menuStateBuilder.disable('merge-branch')
+    // menuStateBuilder.disable('compare-branch')
 
     menuStateBuilder.disable('push')
     menuStateBuilder.disable('pull')

@@ -43,7 +43,7 @@ export class ConfirmRemoveRepository extends React.Component<
             Are you sure you want to remove the repository "{this.props.repository.name}"?
           </p>
           <p className="description">
-            The repository will be removed from GitHub Desktop but will remain
+            The repository will be removed from Wevolver Desktop but will remain
             on disk.
           </p>
         </DialogContent>

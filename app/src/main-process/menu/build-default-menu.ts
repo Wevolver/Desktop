@@ -17,10 +17,10 @@ export function buildDefaultMenu(
 
   if (__DARWIN__) {
     template.push({
-      label: 'GitHub Desktop',
+      label: 'Wevolver Desktop',
       submenu: [
         {
-          label: 'About GitHub Desktop',
+          label: 'About Wevolver Desktop',
           click: emit('show-about'),
           id: 'about',
         },
@@ -31,12 +31,12 @@ export function buildDefaultMenu(
           accelerator: 'CmdOrCtrl+,',
           click: emit('show-preferences'),
         },
-        separator,
-        {
-          label: 'Install Command Line Tool…',
-          id: 'install-cli',
-          click: emit('install-cli'),
-        },
+        // separator,
+        // {
+        //   label: 'Install Command Line Tool…',
+        //   id: 'install-cli',
+        //   click: emit('install-cli'),
+        // },
         separator,
         {
           role: 'services',
@@ -206,13 +206,13 @@ export function buildDefaultMenu(
         id: 'remove-repository',
         click: emit('remove-repository'),
       },
-      separator,
-      {
-        id: 'view-repository-on-github',
-        label: __DARWIN__ ? 'View on GitHub' : '&View on GitHub',
-        accelerator: 'CmdOrCtrl+Alt+G',
-        click: emit('view-repository-on-github'),
-      },
+      // separator,
+      // {
+      //   id: 'view-repository-on-github',
+      //   label: __DARWIN__ ? 'View on GitHub' : '&View on GitHub',
+      //   accelerator: 'CmdOrCtrl+Alt+G',
+      //   click: emit('view-repository-on-github'),
+      // },
       {
         label: __DARWIN__ ? 'Open in Terminal' : 'Op&en command prompt',
         id: 'open-in-shell',
@@ -268,26 +268,26 @@ export function buildDefaultMenu(
         id: 'update-branch',
         click: emit('update-branch'),
       },
-      {
-        label: __DARWIN__
-          ? 'Merge Into Current Branch…'
-          : '&Merge into current branch…',
-        id: 'merge-branch',
-        click: emit('merge-branch'),
-      },
-      separator,
-      {
-        label: __DARWIN__ ? 'Compare on GitHub' : '&Compare on GitHub',
-        id: 'compare-branch',
-        accelerator: 'CmdOrCtrl+Shift+C',
-        click: emit('compare-branch'),
-      },
-      {
-        label: __DARWIN__ ? 'Create Pull Request' : 'Create &pull request',
-        id: 'create-pull-request',
-        accelerator: 'CmdOrCtrl+R',
-        click: emit('create-pull-request'),
-      },
+      // {
+      //   label: __DARWIN__
+      //     ? 'Merge Into Current Branch…'
+      //     : '&Merge into current branch…',
+      //   id: 'merge-branch',
+      //   click: emit('merge-branch'),
+      // },
+      // separator,
+      // {
+      //   label: __DARWIN__ ? 'Compare on GitHub' : '&Compare on GitHub',
+      //   id: 'compare-branch',
+      //   accelerator: 'CmdOrCtrl+Shift+C',
+      //   click: emit('compare-branch'),
+      // },
+      // {
+      //   label: __DARWIN__ ? 'Create Pull Request' : 'Create &pull request',
+      //   id: 'create-pull-request',
+      //   accelerator: 'CmdOrCtrl+R',
+      //   click: emit('create-pull-request'),
+      // },
     ],
   })
 
@@ -362,7 +362,7 @@ export function buildDefaultMenu(
         ...helpItems,
         separator,
         {
-          label: '&About GitHub Desktop',
+          label: '&About Wevolver Desktop',
           click: emit('show-about'),
           id: 'about',
         },

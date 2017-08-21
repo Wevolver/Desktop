@@ -22,7 +22,7 @@ export class UpdateAvailable extends React.Component<
         <Octicon className="icon" symbol={OcticonSymbol.desktopDownload} />
 
         <span>
-          An updated version of GitHub Desktop is available and will be
+          An updated version of Wevolver Desktop is available and will be
           installed at the next launch. See{' '}
           <LinkButton uri={this.props.releaseNotesLink}>
             what's new

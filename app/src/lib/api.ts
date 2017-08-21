@@ -11,7 +11,7 @@ import {
   urlWithQueryString,
 } from './http'
 import { AuthenticationMode } from './2fa'
-import { uuid } from './uuid'
+// import { uuid } from './uuid'
 
 const username: () => Promise<string> = require('username')
 
@@ -33,7 +33,7 @@ enum HttpStatusCode {
 }
 
 /** The note URL used for authorizations the app creates. */
-const NoteURL = 'https://desktop.github.com/'
+// const NoteURL = 'https://desktop.github.com/'
 
 /**
  * Information about a repository as returned by the GitHub API.
@@ -123,7 +123,7 @@ interface IAPIAccessToken {
 
 /** The partial server response when creating a new authorization on behalf of a user */
 interface IAPIAuthorization {
-  readonly token: string
+  readonly access_token: string
 }
 
 /** The response we receive from fetching mentionables. */
@@ -212,7 +212,7 @@ export class API {
   /** Fetch the logged in account. */
   public async fetchAccount(): Promise<IAPIUser> {
     try {
-      const response = await this.request('GET', 'user')
+      const response = await this.request('GET', 'api/2/users')
       const result = await parsedResponse<IAPIUser>(response)
       return result
     } catch (e) {
@@ -479,8 +479,8 @@ export async function createAuthorization(
   password: string,
   oneTimePassword: string | null
 ): Promise<AuthorizationResponse> {
-  const creds = Buffer.from(`${login}:${password}`, 'utf8').toString('base64')
-  const authorization = `Basic ${creds}`
+  // const creds = Buffer.from(`${login}:${password}`, 'utf8').toString('base64')
+  // const authorization = `Basic ${creds}`
   const optHeader = oneTimePassword ? { 'X-GitHub-OTP': oneTimePassword } : {}
 
   const note = await getNote()
@@ -489,17 +489,21 @@ export async function createAuthorization(
     endpoint,
     null,
     'POST',
-    'authorizations',
+    // 'authorizations',
+    'o/proxy-client-token',
     {
-      scopes: Scopes,
-      client_id: ClientID,
-      client_secret: ClientSecret,
+      // scopes: Scopes,
+      // client_id: ClientID,
+      // client_secret: ClientSecret,
       note: note,
-      note_url: NoteURL,
-      fingerprint: uuid(),
+      // note_url: NoteURL,
+      // fingerprint: uuid(),
+      grant_type: 'password',
+      password: password,
+      username: login
     },
     {
-      Authorization: authorization,
+      // Authorization: authorization,
       ...optHeader,
     }
   )
@@ -507,7 +511,7 @@ export async function createAuthorization(
   try {
     const result = await parsedResponse<IAPIAuthorization>(response)
     if (result) {
-      const token = result.token
+      const token = result.access_token
       if (token && typeof token === 'string' && token.length) {
         return { kind: AuthorizationResponseKind.Authorized, token }
       }
@@ -577,18 +581,18 @@ export async function fetchUser(
   endpoint: string,
   token: string
 ): Promise<Account> {
-  const api = new API(endpoint, token)
+  // const api = new API(endpoint, token)
   try {
-    const user = await api.fetchAccount()
-    const emails = await api.fetchEmails()
+    // const user = await api.fetchAccount()
+    // const emails = await api.fetchEmails()
     return new Account(
-      user.login,
+      'rod',// user.login,
       endpoint,
       token,
-      emails,
-      user.avatar_url,
-      user.id,
-      user.name
+      [],// emails,
+      '',// user.avatar_url,
+      0,// user.id,
+      'Test Name'// user.name
     )
   } catch (e) {
     log.warn(`fetchUser: failed with endpoint ${endpoint}`, e)
@@ -634,7 +638,7 @@ async function getNote(): Promise<string> {
     )
   }
 
-  return `GitHub Desktop on ${localUsername}@${OS.hostname()}`
+  return `Wevolver Desktop on ${localUsername}@${OS.hostname()}`
 }
 
 /**
@@ -691,8 +695,8 @@ export function getDotComAPIEndpoint(): string {
   if (envEndpoint && envEndpoint.length > 0) {
     return envEndpoint
   }
-
-  return 'https://api.github.com'
+  return 'https://local.wevolver.com'
+  // return 'https://api.github.com'
 }
 
 /** Get the account for the endpoint. */
