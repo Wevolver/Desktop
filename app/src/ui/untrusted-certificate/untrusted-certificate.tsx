@@ -57,9 +57,9 @@ export class UntrustedCertificate extends React.Component<
           </p>
           <p>In some cases, this may be expected. For example:</p>
           <ul>
-            <li>If this is a GitHub Enterprise trial.</li>
+            <li>If this is a Wevolver Enterprise trial.</li>
             <li>
-              If your GitHub Enterprise instance is run on an unusual top-level
+              If your Wevolver Enterprise instance is run on an unusual top-level
               domain.
             </li>
           </ul>

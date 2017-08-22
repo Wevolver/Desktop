@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { DialogContent } from '../dialog'
-import { LinkButton } from '../lib/link-button'
 import { CallToAction } from '../lib/call-to-action'
-
-const HelpURL = 'https://help.github.com/articles/about-remote-repositories/'
 
 interface INoRemoteProps {
   /** The function to call when the users chooses to publish. */
@@ -17,9 +14,7 @@ export class NoRemote extends React.Component<INoRemoteProps, {}> {
       <DialogContent>
         <CallToAction actionTitle="Publish" onAction={this.props.onPublish}>
           <div>
-            Publish your repository to GitHub. Need help?{' '}
-            <LinkButton uri={HelpURL}>Learn more</LinkButton> about remote
-            repositories.
+            Publish your repository to Wevolver.
           </div>
         </CallToAction>
       </DialogContent>

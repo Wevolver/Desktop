@@ -2,7 +2,7 @@ import * as React from 'react'
 import { WelcomeStep } from './welcome'
 import { LinkButton } from '../lib/link-button'
 
-const CreateAccountURL = 'https://github.com/join?source=github-desktop'
+const CreateAccountURL = 'https://wevolver.com'
 
 interface IStartProps {
   readonly advance: (step: WelcomeStep) => void
@@ -13,15 +13,15 @@ export class Start extends React.Component<IStartProps, {}> {
   public render() {
     return (
       <div id="start">
-        <h1 className="welcome-title">Welcome to GitHub&nbsp;Desktop</h1>
+        <h1 className="welcome-title">Welcome to Wevolver&nbsp;Desktop</h1>
         <p className="welcome-text">
           Wevolver Desktop is a seamless way to contribute to projects on GitHub
-          and GitHub Enterprise. Sign in below to get started with your existing
+          and Wevolver Enterprise. Sign in below to get started with your existing
           projects.
         </p>
 
         <p className="welcome-text">
-          New to GitHub?{' '}
+          New to Wevolver?{' '}
           <LinkButton uri={CreateAccountURL}>
             Create your free account.
           </LinkButton>
@@ -31,7 +31,7 @@ export class Start extends React.Component<IStartProps, {}> {
 
         <div>
           <LinkButton className="welcome-button" onClick={this.signInToDotCom}>
-            Sign into GitHub.com
+            Sign into Wevolver.com
           </LinkButton>
         </div>
 
@@ -40,7 +40,7 @@ export class Start extends React.Component<IStartProps, {}> {
             className="welcome-button"
             onClick={this.signInToEnterprise}
           >
-            Sign into GitHub Enterprise
+            Sign into Wevolver Enterprise
           </LinkButton>
         </div>
 

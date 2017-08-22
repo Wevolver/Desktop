@@ -16,7 +16,6 @@ import { pathExists } from '../../lib/file-system'
 // import { findAccountForRemoteURL } from '../../lib/find-account'
 // import { API } from '../../lib/api'
 import { Dialog, DialogContent, DialogError, DialogFooter } from '../dialog'
-import { Monospaced } from '../lib/monospaced'
 
 /** The name for the error when the destination already exists. */
 const DestinationExistsErrorName = 'DestinationExistsError'
@@ -107,8 +106,7 @@ export class CloneRepository extends React.Component<
 
         <DialogContent>
           <p>
-            Enter a repository URL or GitHub username and repository (e.g.,{' '}
-            <Monospaced>hubot/cool-repo</Monospaced>)
+            Enter a repository URL
           </p>
 
           <Row>

@@ -159,12 +159,12 @@ export class PushPullButton extends React.Component<IPushPullButtonProps, {}> {
 
   private getDescription(): JSX.Element | string {
     if (!this.props.remoteName) {
-      return 'Publish this repository to GitHub'
+      return 'Publish this repository to Wevolver'
     }
     if (!this.props.aheadBehind) {
       const isGitHub = !!this.props.repository.gitHubRepository
       return isGitHub
-        ? 'Publish this branch to GitHub'
+        ? 'Publish this branch to Wevolver'
         : 'Publish this branch to the remote'
     }
 

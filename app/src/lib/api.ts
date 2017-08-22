@@ -695,7 +695,7 @@ export function getDotComAPIEndpoint(): string {
   if (envEndpoint && envEndpoint.length > 0) {
     return envEndpoint
   }
-  return 'https://local.wevolver.com'
+  return 'https://www.wevolver.com'
   // return 'https://api.github.com'
 }
 

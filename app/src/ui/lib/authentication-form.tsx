@@ -152,7 +152,7 @@ export class AuthenticationForm extends React.Component<
         {basicAuth
           ? null
           : <p>
-              Your GitHub Enterprise instance requires you to sign in with your
+              Your Wevolver Enterprise instance requires you to sign in with your
               browser.
             </p>}
 

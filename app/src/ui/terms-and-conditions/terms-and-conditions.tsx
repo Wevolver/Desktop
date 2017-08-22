@@ -49,16 +49,16 @@ export class TermsAndConditions extends React.Component<
     return (
       <Dialog
         id="terms-and-conditions"
-        title="GitHub Open Source Applications Terms and Conditions"
+        title="Wevolver Open Source Applications Terms and Conditions"
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >
         <DialogContent onRef={this.onDialogContainerRef}>
           <p>
-            These GitHub Open Source Applications Terms and Conditions
+            These Wevolver Open Source Applications Terms and Conditions
             ("Application Terms") are a legal agreement between you (either as
-            an individual or on behalf of an entity) and GitHub, Inc. regarding
-            your use of GitHub's applications, such as Wevolver Desktop™ and
+            an individual or on behalf of an entity) and Wevolver, Inc. regarding
+            your use of Wevolver's applications, such as Wevolver Desktop™ and
             associated documentation ("Software"). These Application Terms apply
             to the executable code version of the Software. Source code for the
             Software is available separately and free of charge under open
@@ -67,18 +67,18 @@ export class TermsAndConditions extends React.Component<
             or copy the Software.
           </p>
 
-          <h2>Connecting to GitHub</h2>
+          <h2>Connecting to Wevolver</h2>
 
           <p>
             If you configure the Software to work with one or more accounts on
-            the GitHub.com website or with an instance of GitHub Enterprise,
+            the Wevolver.com website or with an instance of Wevolver Enterprise,
             your use of the Software will also be governed your applicable
-            GitHub.com website Terms of Service and/or the license agreement
-            applicable to your instance of GitHub Enterprise ("GitHub Terms").
+            Wevolver.com website Terms of Service and/or the license agreement
+            applicable to your instance of Wevolver Enterprise ("WevolverWevolver Terms").
           </p>
 
           <p>
-            Any use of the Software that violates your applicable GitHub Terms
+            Any use of the Software that violates your applicable Wevolver Terms
             will also be a violation of these Application Terms.
           </p>
 
@@ -93,39 +93,39 @@ export class TermsAndConditions extends React.Component<
 
           <p>
             To the extent the terms of the licenses applicable to open source
-            components require GitHub to make an offer to provide source code in
+            components require Wevolver to make an offer to provide source code in
             connection with the Software, such offer is hereby made, and you may
-            exercise it by contacting GitHub:{' '}
+            exercise it by contacting Wevolver:{' '}
             <LinkButton uri={contact}>contact</LinkButton>.
           </p>
 
           <p>
-            Unless otherwise agreed to in writing with GitHub, your agreement
-            with GitHub will always include, at a minimum, these Application
+            Unless otherwise agreed to in writing with Wevolver, your agreement
+            with Wevolver will always include, at a minimum, these Application
             Terms. Open source software licenses for the Software's source code
             constitute separate written agreements. To the limited extent that
             the open source software licenses expressly supersede these
             Application Terms, the open source licenses govern your agreement
-            with GitHub for the use of the Software or specific included
+            with Wevolver for the use of the Software or specific included
             components of the Software.
           </p>
 
-          <h2>GitHub's Logos</h2>
+          <h2>Wevolver's Logos</h2>
 
           <p>
-            The license grant included with the Software is not for GitHub's
-            trademarks, which include the Software logo designs. GitHub reserves
-            all trademark and copyright rights in and to all GitHub trademarks.
-            GitHub's logos include, for instance, the stylized designs that
+            The license grant included with the Software is not for Wevolver's
+            trademarks, which include the Software logo designs. Wevolver reserves
+            all trademark and copyright rights in and to all Wevolver trademarks.
+            Wevolver's logos include, for instance, the stylized designs that
             include "logo" in the file title in the "logos" folder.
           </p>
 
           <p>
-            The names GitHub, Wevolver Desktop, GitHub for Mac, GitHub for
-            Windows, Atom, the Octocat, and related GitHub logos and/or stylized
-            names are trademarks of GitHub. You agree not to display or use
-            these trademarks in any manner without GitHub's prior, written
-            permission, except as allowed by GitHub's Logos and Usage Policy:{' '}
+            The names Wevolver, Wevolver Desktop, Wevolver for Mac, Wevolver for
+            Windows, Atom, the Octocat, and related Wevolver logos and/or stylized
+            names are trademarks of Wevolver. You agree not to display or use
+            these trademarks in any manner without Wevolver's prior, written
+            permission, except as allowed by Wevolver's Logos and Usage Policy:{' '}
             <LinkButton uri={logos}>logos</LinkButton>.
           </p>
 
@@ -134,10 +134,10 @@ export class TermsAndConditions extends React.Component<
           <p>
             The Software may collect personal information. You may control what
             information the Software collects in the settings panel. If the
-            Software does collect personal information on GitHub's behalf,
-            GitHub will process that information in accordance with the
+            Software does collect personal information on Wevolver's behalf,
+            Wevolver will process that information in accordance with the
             <LinkButton uri={privacyStatement}>
-              GitHub Privacy Statement
+              Wevolver Privacy Statement
             </LinkButton>.
           </p>
 
@@ -148,7 +148,7 @@ export class TermsAndConditions extends React.Component<
           <p>
             The Software may include an auto-update service ("Service"). If you
             choose to use the Service or you download Software that
-            automatically enables the Service, GitHub will automatically update
+            automatically enables the Service, Wevolver will automatically update
             the Software when a new version is available.
           </p>
 
@@ -157,7 +157,7 @@ export class TermsAndConditions extends React.Component<
           <p>
             THE SERVICE IS PROVIDED ON AN "AS IS" BASIS, AND NO WARRANTY, EITHER
             EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE SERVICE IS AT YOUR
-            SOLE RISK. GitHub does not warrant that (i) the Service will meet
+            SOLE RISK. Wevolver does not warrant that (i) the Service will meet
             your specific requirements; (ii) the Service is fully compatible
             with any particular platform; (iii) your use of the Service will be
             uninterrupted, timely, secure, or error-free; (iv) the results that
@@ -173,7 +173,7 @@ export class TermsAndConditions extends React.Component<
             FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR
             EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF
             PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF
-            GITHUB HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RELATED
+            Wevolver HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RELATED
             TO THE SERVICE, including, for example: (i) the use or the inability
             to use the Service; (ii) the cost of procurement of substitute goods
             and services resulting from any goods, data, information or services
@@ -185,9 +185,9 @@ export class TermsAndConditions extends React.Component<
           </p>
 
           <p>
-            GitHub reserves the right at any time and from time to time to
+            Wevolver reserves the right at any time and from time to time to
             modify or discontinue, temporarily or permanently, the Service (or
-            any part thereof) with or without notice. GitHub shall not be liable
+            any part thereof) with or without notice. Wevolver shall not be liable
             to you or to any third-party for any price change, suspension or
             discontinuance of the Service.
           </p>
@@ -196,7 +196,7 @@ export class TermsAndConditions extends React.Component<
 
           <ol>
             <li>
-              No Waiver. The failure of GitHub to exercise or enforce any right
+              No Waiver. The failure of Wevolver to exercise or enforce any right
               or provision of these Application Terms shall not constitute a
               waiver of such right or provision.
             </li>
@@ -204,8 +204,8 @@ export class TermsAndConditions extends React.Component<
             <li>
               Entire Agreement. These Application Terms, together with any
               applicable Privacy Notices, constitutes the entire agreement
-              between you and GitHub and governs your use of the Software,
-              superseding any prior agreements between you and GitHub
+              between you and Wevolver and governs your use of the Software,
+              superseding any prior agreements between you and Wevolver
               (including, but not limited to, any prior versions of the
               Application Terms).
             </li>
@@ -228,30 +228,23 @@ export class TermsAndConditions extends React.Component<
             <li>
               No Modifications; Complete Agreement. These Application Terms may
               only be modified by a written amendment signed by an authorized
-              representative of GitHub, or by the posting by GitHub of a revised
+              representative of Wevolver, or by the posting by Wevolver of a revised
               version. These Application Terms, together with any applicable
-              Open Source Licenses and Notices and GitHub's Privacy Statement,
+              Open Source Licenses and Notices and Wevolver's Privacy Statement,
               represent the complete and exclusive statement of the agreement
               between you and us. These Application Terms supersede any proposal
               or prior agreement oral or written, and any other communications
-              between you and GitHub relating to the subject matter of these
+              between you and Wevolver relating to the subject matter of these
               terms.
             </li>
 
             <li>
-              License to GitHub Policies. These Application Terms are licensed
+              License to Wevolver Policies. These Application Terms are licensed
               under the{' '}
               <LinkButton uri={license}>
                 Creative Commons Attribution license
               </LinkButton>. You may use it freely under the terms of the
               Creative Commons license.
-            </li>
-
-            <li>
-              Contact Us. Please send any questions about these Application
-              Terms to <LinkButton uri={contact}>
-                support@github.com
-              </LinkButton>.
             </li>
           </ol>
         </DialogContent>

@@ -10,8 +10,8 @@ import { LinkButton } from '../lib/link-button'
 import { ButtonGroup } from '../lib/button-group'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 
-const WebsiteURL = 'https://desktop.github.com'
-const RepositoryURL = 'https://github.com/desktop/desktop'
+const WebsiteURL = 'https://wevolver.com'
+const RepositoryURL = 'https://wevolver.com'
 
 interface IAcknowledgementsProps {
   /** The function to call when the dialog should be dismissed. */
