@@ -58,6 +58,8 @@ export async function push(
     env: envForAuthentication(account),
     expectedErrors: AuthenticationErrors,
   }
+  
+  log.warn(JSON.stringify(envForAuthentication(account)))
 
   if (progressCallback) {
     args.push('--progress')
