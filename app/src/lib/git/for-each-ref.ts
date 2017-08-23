@@ -20,21 +20,27 @@ export async function getBranches(
     '%(author)',
     '%(parent)', // parent SHAs
     '%(subject)',
-    '%(body)',
-    `%${delimiter}`, // indicate end-of-line as %(body) may contain newlines
+    '%(body)%00%1F',
+    // `%1F`, // indicate end-of-line as %(body) may contain newlines
   ].join('%00')
 
   if (!prefixes || !prefixes.length) {
     prefixes = ['refs/heads', 'refs/remotes']
   }
-
+  log.warn(format)
   const result = await git(
     ['for-each-ref', `--format=${format}`, ...prefixes],
     repository.path,
     'getBranches'
   )
+
   const names = result.stdout
   const lines = names.split(delimiterString)
+
+  log.warn('result')
+  log.warn(names)
+  log.warn(lines.length.toString())
+  log.warn(JSON.stringify(lines))
 
   // Remove the trailing newline
   lines.splice(-1, 1)
@@ -50,6 +56,9 @@ export async function getBranches(
 
     const authorIdentity = pieces[4]
     const author = CommitIdentity.parseIdentity(authorIdentity)
+
+    log.warn('author')
+    log.warn(author ? 'there is' : 'isnf')
 
     if (!author) {
       throw new Error(`Couldn't parse author identity ${authorIdentity}`)
@@ -67,7 +76,7 @@ export async function getBranches(
 
     return new Branch(name, upstream.length > 0 ? upstream : null, tip, type)
   })
-
+  log.warn(JSON.stringify(branches))
   return branches
 }
 
