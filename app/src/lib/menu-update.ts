@@ -216,7 +216,7 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
     'new-repository',
     'add-local-repository',
     'clone-repository',
-    'preferences',
+    // 'preferences',
     'about',
   ]
 

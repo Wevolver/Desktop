@@ -25,12 +25,12 @@ export function buildDefaultMenu(
           id: 'about',
         },
         separator,
-        {
-          label: 'Preferences…',
-          id: 'preferences',
-          accelerator: 'CmdOrCtrl+,',
-          click: emit('show-preferences'),
-        },
+        // {
+        //   label: 'Preferences…',
+        //   id: 'preferences',
+        //   accelerator: 'CmdOrCtrl+,',
+        //   click: emit('show-preferences'),
+        // },
         // separator,
         // {
         //   label: 'Install Command Line Tool…',
@@ -82,12 +82,12 @@ export function buildDefaultMenu(
 
     fileItems.push(
       separator,
-      {
-        label: '&Options…',
-        id: 'preferences',
-        accelerator: 'CmdOrCtrl+,',
-        click: emit('show-preferences'),
-      },
+      // {
+      //   label: '&Options…',
+      //   id: 'preferences',
+      //   accelerator: 'CmdOrCtrl+,',
+      //   click: emit('show-preferences'),
+      // },
       separator,
       { role: 'quit' }
     )

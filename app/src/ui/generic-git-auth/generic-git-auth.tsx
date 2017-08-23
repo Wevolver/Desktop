@@ -61,7 +61,7 @@ export class GenericGitAuthentication extends React.Component<
 
           <Row>
             <TextBox
-              label="Username"
+              label="Email"
               autoFocus={true}
               value={this.state.username}
               onValueChanged={this.onUsernameChange}
