@@ -81,7 +81,7 @@ export function buildDefaultMenu(
     const fileItems = fileMenu.submenu as Electron.MenuItemConstructorOptions[]
 
     fileItems.push(
-      separator,
+      // separator,
       // {
       //   label: '&Options…',
       //   id: 'preferences',

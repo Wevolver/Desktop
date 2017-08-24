@@ -1,7 +1,7 @@
 /**
  * button-group-order
  *
- * This custom tslint rule is highly specific to GitHub Desktop and attempts
+ * This custom tslint rule is highly specific to Wevolver Desktop and attempts
  * to enforce a consistent order for buttons inside of a <ButtonGroup>
  * component.
  *

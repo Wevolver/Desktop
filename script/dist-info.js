@@ -116,7 +116,7 @@ function getUserDataPath() {
 }
 
 function getWindowsIdentifierName() {
-  return 'GitHubDesktop'
+  return 'WevolverDesktop'
 }
 
 function getBundleSizes() {
