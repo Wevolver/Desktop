@@ -402,7 +402,7 @@ export class CreateRepository extends React.Component<
       <Dialog
         id="create-repository"
         title={
-          __DARWIN__ ? 'Create a New Repository' : 'Create a new repository'
+          __DARWIN__ ? 'Create a New Project' : 'Create a new project'
         }
         loading={this.state.creating}
         onSubmit={this.createRepository}
@@ -413,7 +413,7 @@ export class CreateRepository extends React.Component<
             <TextBox
               value={this.state.name}
               label="Name"
-              placeholder="repository name"
+              placeholder="project name"
               onChange={this.onNameChanged}
               autoFocus={true}
             />
@@ -437,7 +437,7 @@ export class CreateRepository extends React.Component<
 
           <Row>
             <Checkbox
-              label="Initialize this repository with a README"
+              label="Initialize this project with a README"
               value={
                 this.state.createWithReadme
                   ? CheckboxValue.On
@@ -454,7 +454,7 @@ export class CreateRepository extends React.Component<
         <DialogFooter>
           <ButtonGroup>
             <Button type="submit" disabled={disabled}>
-              {__DARWIN__ ? 'Create Repository' : 'Create repository'}
+              {__DARWIN__ ? 'Create Project' : 'Create project'}
             </Button>
 
             <Button onClick={this.props.onDismissed}>Cancel</Button>
