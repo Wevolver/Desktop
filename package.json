@@ -1,7 +1,7 @@
 {
   "repository": {
     "type": "git",
-    "url": "https://github.com/desktop/desktop.git"
+    "url": "https://github.com/wevolver/Desktop.git"
   },
   "description": "Wevolver Desktop build dependencies",
   "scripts": {
@@ -31,9 +31,9 @@
     "prettify": "npm run prettier:base \"{app/{src,test}/**/*.{ts,tsx,js},app/webpack.*.js,script/!(*.ps1|*.bat|setup-macos-keychain)}\""
   },
   "author": {
-    "name": "GitHub, Inc.",
-    "email": "opensource+desktop@github.com",
-    "url": "https://desktop.github.com/"
+    "name": "Wevolver, Inc.",
+    "email": "info@wevolver.com",
+    "url": "https://wevolver.com/"
   },
   "license": "MIT",
   "engines": {
