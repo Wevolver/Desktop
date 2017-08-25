@@ -20,7 +20,7 @@ export function lookupPreferredEmail(
   }
 
   const noReply = emails.find(e =>
-    e.email.toLowerCase().endsWith('@users.noreply.github.com')
+    e.email.toLowerCase().endsWith('@uwevolver.com')
   )
   if (noReply) {
     return noReply

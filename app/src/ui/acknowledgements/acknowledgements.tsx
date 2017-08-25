@@ -164,7 +164,7 @@ export class Acknowledgements extends React.Component<
 /** Normalize a package URL to a GitHub URL. */
 function normalizedGitHubURL(url: string): string {
   let newURL = url
-  newURL = newURL.replace('git+https://github.com', 'https://github.com')
-  newURL = newURL.replace('git+ssh://git@github.com', 'https://github.com')
+  newURL = newURL.replace('git+https://wevolver.com', 'https://wevolver.com')
+  newURL = newURL.replace('git+ssh://git@wevolver.com', 'https://wevolver.com')
   return newURL
 }

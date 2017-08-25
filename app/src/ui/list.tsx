@@ -8,8 +8,8 @@ import { createUniqueId, releaseUniqueId } from './lib/id-pool'
 /**
  * Describe the first argument given to the cellRenderer,
  * See
- *  https://github.com/bvaughn/react-virtualized/issues/386
- *  https://github.com/bvaughn/react-virtualized/blob/8.0.11/source/Grid/defaultCellRangeRenderer.js#L38-L44
+ *  https://wevolver.com/bvaughn/react-virtualized/issues/386
+ *  https://wevolver.com/bvaughn/react-virtualized/blob/8.0.11/source/Grid/defaultCellRangeRenderer.js#L38-L44
  */
 export interface IRowRendererParams {
   /** Horizontal (column) index of cell */

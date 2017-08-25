@@ -248,7 +248,7 @@ export class ChangesSidebar extends React.Component<IChangesSidebarProps, {}> {
     const selectedFileID = changesState.selectedFileID
 
     // TODO: I think user will expect the avatar to match that which
-    // they have configured in GitHub.com as well as GHE so when we add
+    // they have configured in wevolver.com as well as GHE so when we add
     // support for GHE we should revisit this and try to update the logic
     // to look up based on email _and_ host.
     const email = this.props.commitAuthor ? this.props.commitAuthor.email : null

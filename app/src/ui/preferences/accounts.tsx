@@ -81,7 +81,7 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
             onAction={this.onDotComSignIn}
           >
             <div>
-              Sign in to your GitHub.com account to access your repositories.
+              Sign in to your wevolver.com account to access your repositories.
             </div>
           </CallToAction>
         )

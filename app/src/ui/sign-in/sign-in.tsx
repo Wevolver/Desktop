@@ -240,7 +240,7 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
             value={this.state.otpToken}
             onValueChanged={this.onOTPTokenChanged}
             labelLinkText={`What's this?`}
-            labelLinkUri="https://help.github.com/articles/providing-your-2fa-authentication-code/"
+            labelLinkUri="https://help.wevolver.com/articles/providing-your-2fa-authentication-code/"
           />
         </Row>
       </DialogContent>

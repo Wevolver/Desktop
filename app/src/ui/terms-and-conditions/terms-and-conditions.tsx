@@ -9,10 +9,10 @@ interface ITermsAndConditionsProps {
   readonly onDismissed: () => void
 }
 
-const contact = 'https://github.com/contact'
-const logos = 'https://github.com/logos'
+const contact = 'https://wevolver.com/contact'
+const logos = 'https://wevolver.com/logos'
 const privacyStatement =
-  'https://help.github.com/articles/github-privacy-statement/'
+  'https://help.wevolver.com/articles/github-privacy-statement/'
 const license = 'https://creativecommons.org/licenses/by/4.0/'
 
 export class TermsAndConditions extends React.Component<

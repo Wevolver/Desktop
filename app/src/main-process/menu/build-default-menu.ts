@@ -307,14 +307,14 @@ export function buildDefaultMenu(
   const submitIssueItem: Electron.MenuItemConstructorOptions = {
     label: __DARWIN__ ? 'Report Issue…' : 'Report issue…',
     click() {
-      shell.openExternal('https://github.com/desktop/desktop/issues/new')
+      shell.openExternal('https://wevolver.com')
     },
   }
 
   const showUserGuides: Electron.MenuItemConstructorOptions = {
     label: 'Show User Guides',
     click() {
-      shell.openExternal('https://help.github.com/desktop-beta/guides/')
+      shell.openExternal('https://www.wevolver.com/wevolver.moderator/documentation/blob/master/readme.md')
     },
   }
 

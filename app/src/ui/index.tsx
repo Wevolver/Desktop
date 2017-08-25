@@ -54,7 +54,7 @@ if (shellNeedsPatching(process)) {
 enableSourceMaps()
 
 // Tell dugite where to find the git environment,
-// see https://github.com/desktop/dugite/pull/85
+// see https://wevolver.com/desktop/dugite/pull/85
 process.env['LOCAL_GIT_DIRECTORY'] = Path.resolve(__dirname, 'git')
 
 // We're using a polyfill for the upcoming CSS4 `:focus-ring` pseudo-selector.
@@ -63,7 +63,7 @@ process.env['LOCAL_GIT_DIRECTORY'] = Path.resolve(__dirname, 'git')
 // gives better visiblity to individuals who navigate with the keyboard.
 //
 // See:
-//   https://github.com/WICG/focus-ring
+//   https://wevolver.com/WICG/focus-ring
 //   Focus Ring! -- A11ycasts #16: https://youtu.be/ilj2P5-5CjI
 require('wicg-focus-ring')
 

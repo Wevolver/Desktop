@@ -10,7 +10,7 @@ interface ISignInDotComProps {
   readonly signInState: SignInState | null
 }
 
-/** The Welcome flow step to login to GitHub.com. */
+/** The Welcome flow step to login to wevolver.com. */
 export class SignInDotCom extends React.Component<ISignInDotComProps, {}> {
   public componentWillMount() {
     this.props.dispatcher.beginDotComSignIn()

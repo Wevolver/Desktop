@@ -93,7 +93,7 @@ export const dialogTransitionLeaveTimeout = 100
 /**
  * The time to delay (in ms) from when we've loaded the initial state to showing
  * the window. This is try to give Chromium enough time to flush our latest DOM
- * changes. See https://github.com/desktop/desktop/issues/1398.
+ * changes. See https://wevolver.com/desktop/desktop/issues/1398.
  */
 const ReadyDelay = 100
 
@@ -1386,7 +1386,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       return null
     }
 
-    const releaseNotesUri = 'https://desktop.github.com/release-notes/'
+    const releaseNotesUri = 'https://desktop.wevolver.com/release-notes/'
 
     return (
       <UpdateAvailable

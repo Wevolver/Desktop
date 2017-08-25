@@ -40,7 +40,7 @@ interface IMenuListItemProps {
  *
  * Example: CommandOrControl becomes either '⌘' or 'Ctrl' depending on platform.
  *
- * See https://github.com/electron/electron/blob/fb74f55/docs/api/accelerator.md
+ * See https://wevolver.com/electron/electron/blob/fb74f55/docs/api/accelerator.md
  */
 function getPlatformSpecificNameOrSymbolForModifier(modifier: string): string {
   switch (modifier.toLowerCase()) {

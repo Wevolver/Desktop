@@ -117,8 +117,8 @@ export class TextBox extends React.Component<ITextBoxProps, ITextBoxState> {
    * Update the caret position of the input element if it can be reapplied.
    *
    * References:
-   *  - upstream issue: https://github.com/facebook/react/issues/955
-   *  - example workaround: https://gist.github.com/shiftkey/a713712182288b0870952fd5a1bfcebe
+   *  - upstream issue: https://wevolver.com/facebook/react/issues/955
+   *  - example workaround: https://gist.wevolver.com/shiftkey/a713712182288b0870952fd5a1bfcebe
    */
   private updateCaretPosition = () => {
     if (this.instance === null || this.props.value === undefined) {

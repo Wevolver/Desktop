@@ -165,7 +165,7 @@ export class CreateBranch extends React.Component<
 
       if (!defaultBranch || defaultBranch.name === currentBranch.name) {
         const defaultBranchLink = (
-          <LinkButton uri="https://help.github.com/articles/setting-the-default-branch/">
+          <LinkButton uri="https://help.wevolver.com/articles/setting-the-default-branch/">
             default branch
           </LinkButton>
         )

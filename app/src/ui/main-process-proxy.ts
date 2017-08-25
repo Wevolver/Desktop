@@ -69,7 +69,7 @@ export interface IMenuItem {
 
 /**
  * There's currently no way for us to know when a contextual menu is closed (see
- * https://github.com/electron/electron/issues/9441). So we'll store the latest
+ * https://wevolver.com/electron/electron/issues/9441). So we'll store the latest
  * contextual menu items we presented and assume any actions we receive are
  * coming from it.
  */
