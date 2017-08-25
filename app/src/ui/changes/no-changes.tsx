@@ -19,7 +19,7 @@ export class NoChanges extends React.Component<INoChangesProps, {}> {
 
         <div>
           Would you like to{' '}
-          <LinkButton onClick={this.open}>open this repository</LinkButton> in{' '}
+          <LinkButton onClick={this.open}>open this project</LinkButton> in{' '}
           {opener}?
         </div>
       </div>
