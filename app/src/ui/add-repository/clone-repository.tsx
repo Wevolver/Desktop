@@ -93,7 +93,7 @@ export class CloneRepository extends React.Component<
     return (
       <Dialog
         className="clone-repository"
-        title="Clone a repository"
+        title="Clone a project"
         onSubmit={this.clone}
         onDismissed={this.props.onDismissed}
         loading={this.state.loading}
@@ -106,12 +106,12 @@ export class CloneRepository extends React.Component<
 
         <DialogContent>
           <p>
-            Enter a repository URL
+            Enter a project URL
           </p>
 
           <Row>
             <TextBox
-              placeholder="URL or username/repository"
+              placeholder="URL of project"
               value={this.state.url}
               onValueChanged={this.onURLChanged}
               autoFocus={true}
@@ -122,7 +122,7 @@ export class CloneRepository extends React.Component<
             <TextBox
               value={this.state.path}
               label={__DARWIN__ ? 'Local Path' : 'Local path'}
-              placeholder="repository path"
+              placeholder="project path"
               onChange={this.onPathChanged}
             />
             <Button onClick={this.showFilePicker}>Choose…</Button>
