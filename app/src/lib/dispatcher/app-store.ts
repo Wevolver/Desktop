@@ -2239,7 +2239,7 @@ export class AppStore {
   }
 
   public _setUpdateBannerVisibility(visibility: boolean) {
-    this.isUpdateAvailableBannerVisible = visibility
+    this.isUpdateAvailableBannerVisible = false // visibility
 
     this.emitUpdate()
   }
