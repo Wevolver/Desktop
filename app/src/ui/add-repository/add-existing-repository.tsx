@@ -94,11 +94,11 @@ export class AddExistingRepository extends React.Component<
       <Row className="warning-helper-text">
         <Octicon symbol={OcticonSymbol.alert} />
         <p>
-          This directory does not appear to be a Git repository.
+          This directory does not appear to be a Git project.
           <br />
           Would you like to{' '}
           <LinkButton onClick={this.onCreateRepositoryClicked}>
-            create a repository
+            create a project
           </LinkButton>{' '}
           here instead?
         </p>
@@ -112,7 +112,7 @@ export class AddExistingRepository extends React.Component<
     return (
       <Dialog
         id="add-existing-repository"
-        title={__DARWIN__ ? 'Add Local Repository' : 'Add local repository'}
+        title={__DARWIN__ ? 'Add Local Project' : 'Add local project'}
         onSubmit={this.addRepository}
         onDismissed={this.props.onDismissed}
       >
@@ -121,7 +121,7 @@ export class AddExistingRepository extends React.Component<
             <TextBox
               value={this.state.path}
               label={__DARWIN__ ? 'Local Path' : 'Local path'}
-              placeholder="repository path"
+              placeholder="project path"
               onValueChanged={this.onPathChanged}
               autoFocus={true}
             />
@@ -133,7 +133,7 @@ export class AddExistingRepository extends React.Component<
         <DialogFooter>
           <ButtonGroup>
             <Button disabled={disabled} type="submit">
-              {__DARWIN__ ? 'Add Repository' : 'Add repository'}
+              {__DARWIN__ ? 'Add Project' : 'Add project'}
             </Button>
             <Button onClick={this.props.onDismissed}>Cancel</Button>
           </ButtonGroup>
