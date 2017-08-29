@@ -71,7 +71,8 @@ function packageWindows() {
     process.exit(1)
   }
 
-  const iconUrl = 'https://www.wevolver.com/thumbnail/64/64/auto/media/images/logo/logo_2014_transparent_noText_224.png'
+  const iconUrl = 'https://avatars3.githubusercontent.com/u/18559297?v=4&s=200'
+
 
   const nugetPkgName = distInfo.getWindowsIdentifierName()
   const options = {
