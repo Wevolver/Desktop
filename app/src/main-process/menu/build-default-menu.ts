@@ -25,12 +25,12 @@ export function buildDefaultMenu(
           id: 'about',
         },
         separator,
-        // {
-        //   label: 'Preferences…',
-        //   id: 'preferences',
-        //   accelerator: 'CmdOrCtrl+,',
-        //   click: emit('show-preferences'),
-        // },
+        {
+          label: 'Preferences…',
+          id: 'preferences',
+          accelerator: 'CmdOrCtrl+,',
+          click: emit('show-preferences'),
+        },
         // separator,
         // {
         //   label: 'Install Command Line Tool…',
@@ -81,13 +81,13 @@ export function buildDefaultMenu(
     const fileItems = fileMenu.submenu as Electron.MenuItemConstructorOptions[]
 
     fileItems.push(
-      // separator,
-      // {
-      //   label: '&Options…',
-      //   id: 'preferences',
-      //   accelerator: 'CmdOrCtrl+,',
-      //   click: emit('show-preferences'),
-      // },
+      separator,
+      {
+        label: '&Options…',
+        id: 'preferences',
+        accelerator: 'CmdOrCtrl+,',
+        click: emit('show-preferences'),
+      },
       separator,
       { role: 'quit' }
     )

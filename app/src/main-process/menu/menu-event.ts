@@ -10,7 +10,7 @@ export type MenuEvent =
   | 'create-repository'
   | 'rename-branch'
   | 'delete-branch'
-  // | 'show-preferences'
+  | 'show-preferences'
   | 'choose-repository'
   | 'open-working-directory'
   | 'update-branch'

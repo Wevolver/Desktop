@@ -1,7 +1,7 @@
 export type MenuIDs =
   | 'rename-branch'
   | 'delete-branch'
-  // | 'preferences'
+  | 'preferences'
   | 'update-branch'
   | 'open-in-shell'
   | 'push'

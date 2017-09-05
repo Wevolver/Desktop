@@ -244,8 +244,8 @@ export class App extends React.Component<IAppProps, IAppState> {
         return this.renameBranch()
       case 'delete-branch':
         return this.deleteBranch()
-      // case 'show-preferences':
-      //   return this.props.dispatcher.showPopup({ type: PopupType.Preferences })
+      case 'show-preferences':
+        return this.props.dispatcher.showPopup({ type: PopupType.Preferences })
       case 'choose-repository':
         return this.props.dispatcher.showFoldout({
           type: FoldoutType.Repository,
