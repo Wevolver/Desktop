@@ -58,7 +58,7 @@ export class RepositoryView extends React.Component<IRepositoryProps, {}> {
               />
             : null}
         </span>
-        <span>History</span>
+        <span>Commits</span>
       </TabBar>
     )
   }

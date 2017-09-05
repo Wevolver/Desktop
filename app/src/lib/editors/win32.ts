@@ -157,7 +157,7 @@ function isExpectedInstallation(
 ): boolean {
   switch (editor) {
     case ExternalEditor.Atom:
-      return displayName === 'Atom' && publisher === 'GitHub Inc.'
+      return displayName === 'Atom' && publisher === 'Wevolver Inc.'
     case ExternalEditor.VisualStudioCode:
       return (
         displayName === 'Visual Studio Code' &&

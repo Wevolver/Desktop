@@ -71,7 +71,8 @@ function packageWindows() {
     process.exit(1)
   }
 
-  const iconUrl = 'https://desktop.githubusercontent.com/app-icon.ico'
+  const iconUrl = 'https://avatars3.githubusercontent.com/u/18559297?v=4&s=200'
+
 
   const nugetPkgName = distInfo.getWindowsIdentifierName()
   const options = {

@@ -172,7 +172,7 @@ export class CreateBranch extends React.Component<
         return (
           <p>
             Your new branch will be based on your currently checked out branch ({currentBranch.name}).{' '}
-            {currentBranch.name} is the {defaultBranchLink} for your repository.
+            {currentBranch.name} is the {defaultBranchLink} for your project.
           </p>
         )
       } else {
