@@ -7,7 +7,7 @@ import {
 } from '../../models/editors'
 import { Dispatcher } from '../../lib/dispatcher'
 import { TabBar } from '../tab-bar'
-import { Accounts } from './accounts'
+// import { Accounts } from './accounts'
 import { Advanced } from './advanced'
 import { Git } from './git'
 import { assertNever } from '../../lib/fatal-error'
@@ -49,7 +49,7 @@ export class Preferences extends React.Component<
     super(props)
 
     this.state = {
-      selectedIndex: this.props.initialSelectedTab || PreferencesTab.Accounts,
+      selectedIndex: this.props.initialSelectedTab || PreferencesTab.Git,
       committerName: '',
       committerEmail: '',
       isOptedOut: false,
@@ -107,7 +107,6 @@ export class Preferences extends React.Component<
           onTabClicked={this.onTabClicked}
           selectedIndex={this.state.selectedIndex}
         >
-          <span>Accounts</span>
           <span>Git</span>
           <span>Advanced</span>
         </TabBar>
@@ -118,33 +117,23 @@ export class Preferences extends React.Component<
     )
   }
 
-  private onDotComSignIn = () => {
-    this.props.onDismissed()
-    this.props.dispatcher.showDotComSignInDialog()
-  }
+  // private onDotComSignIn = () => {
+  //   this.props.onDismissed()
+  //   this.props.dispatcher.showDotComSignInDialog()
+  // }
 
-  private onEnterpriseSignIn = () => {
-    this.props.onDismissed()
-    this.props.dispatcher.showEnterpriseSignInDialog()
-  }
+  // private onEnterpriseSignIn = () => {
+  //   this.props.onDismissed()
+  //   this.props.dispatcher.showEnterpriseSignInDialog()
+  // }
 
-  private onLogout = (account: Account) => {
-    this.props.dispatcher.removeAccount(account)
-  }
+  // private onLogout = (account: Account) => {
+  //   this.props.dispatcher.removeAccount(account)
+  // }
 
   private renderActiveTab() {
     const index = this.state.selectedIndex
     switch (index) {
-      case PreferencesTab.Accounts:
-        return (
-          <Accounts
-            dotComAccount={this.props.dotComAccount}
-            enterpriseAccount={this.props.enterpriseAccount}
-            onDotComSignIn={this.onDotComSignIn}
-            onEnterpriseSignIn={this.onEnterpriseSignIn}
-            onLogout={this.onLogout}
-          />
-        )
       case PreferencesTab.Git: {
         return (
           <Git
@@ -196,8 +185,6 @@ export class Preferences extends React.Component<
   private renderFooter() {
     const index = this.state.selectedIndex
     switch (index) {
-      case PreferencesTab.Accounts:
-        return null
       case PreferencesTab.Advanced:
       case PreferencesTab.Git: {
         return (

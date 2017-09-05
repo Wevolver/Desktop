@@ -3,7 +3,7 @@ import { DialogContent } from '../dialog'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
 import { Row } from '../../ui/lib/row'
-import { SamplesURL } from '../../lib/stats'
+// import { SamplesURL } from '../../lib/stats'
 import { Select } from '../lib/select'
 import { getAvailableEditors } from '../../lib/editors/lookup'
 
@@ -55,14 +55,14 @@ export class Advanced extends React.Component<
     this.setState({ availableEditors: editorLabels, selectedExternalEditor })
   }
 
-  private onReportingOptOutChanged = (
-    event: React.FormEvent<HTMLInputElement>
-  ) => {
-    const value = !event.currentTarget.checked
+  // private onReportingOptOutChanged = (
+  //   event: React.FormEvent<HTMLInputElement>
+  // ) => {
+  //   const value = !event.currentTarget.checked
 
-    this.setState({ reportingOptOut: value })
-    this.props.onOptOutSet(value)
-  }
+  //   this.setState({ reportingOptOut: value })
+  //   this.props.onOptOutSet(value)
+  // }
 
   private onConfirmRepoRemovalChanged = (
     event: React.FormEvent<HTMLInputElement>
@@ -81,14 +81,14 @@ export class Advanced extends React.Component<
     this.props.onSelectedEditorChanged(value)
   }
 
-  public reportDesktopUsageLabel() {
-    return (
-      <span>
-        Help Wevolver Desktop improve by submitting{' '}
-        <LinkButton uri={SamplesURL}>anonymous usage data</LinkButton>
-      </span>
-    )
-  }
+  // public reportDesktopUsageLabel() {
+  //   return (
+  //     <span>
+  //       Help Wevolver Desktop improve by submitting{' '}
+  //       <LinkButton uri={SamplesURL}>anonymous usage data</LinkButton>
+  //     </span>
+  //   )
+  // }
 
   private renderExternalEditor() {
     const options = this.state.availableEditors || []
@@ -136,16 +136,7 @@ export class Advanced extends React.Component<
         </Row>
         <Row>
           <Checkbox
-            label={this.reportDesktopUsageLabel()}
-            value={
-              this.state.reportingOptOut ? CheckboxValue.Off : CheckboxValue.On
-            }
-            onChange={this.onReportingOptOutChanged}
-          />
-        </Row>
-        <Row>
-          <Checkbox
-            label="Show confirmation dialog before removing repositories"
+            label="Show confirmation dialog before removing projects"
             value={
               this.state.confirmRepoRemoval
                 ? CheckboxValue.On
