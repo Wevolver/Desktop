@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { WelcomeStep } from './welcome'
+// import { WelcomeStep } from './welcome'
 import { LinkButton } from '../lib/link-button'
 
 const CreateAccountURL = 'https://wevolver.com'
 
 interface IStartProps {
-  readonly advance: (step: WelcomeStep) => void
+  // readonly advance: (step: WelcomeStep) => void
 }
 
 /** The first step of the Welcome flow. */
@@ -54,14 +54,14 @@ export class Start extends React.Component<IStartProps, {}> {
   }
 
   private signInToDotCom = () => {
-    this.props.advance(WelcomeStep.SignInToDotCom)
+    // this.props.advance(WelcomeStep.SignInToDotCom)
   }
 
   private signInToEnterprise = () => {
-    this.props.advance(WelcomeStep.SignInToEnterprise)
+    // this.props.advance(WelcomeStep.SignInToEnterprise)
   }
 
   private skip = () => {
-    this.props.advance(WelcomeStep.ConfigureGit)
+    // this.props.advance(WelcomeStep.ConfigureGit)
   }
 }
