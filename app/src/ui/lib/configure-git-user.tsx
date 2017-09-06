@@ -1,13 +1,13 @@
 import * as React from 'react'
-import { Commit } from '../../models/commit'
+// import { Commit } from '../../models/commit'
 import { lookupPreferredEmail } from '../../lib/email'
 import {
   getGlobalConfigValue,
   setGlobalConfigValue,
 } from '../../lib/git/config'
-import { CommitListItem } from '../history/commit-list-item'
+// import { CommitListItem } from '../history/commit-list-item'
 import { Account } from '../../models/account'
-import { CommitIdentity } from '../../models/commit-identity'
+// import { CommitIdentity } from '../../models/commit-identity'
 import { Form } from '../lib/form'
 import { Button } from '../lib/button'
 import { TextBox } from '../lib/text-box'
@@ -61,62 +61,32 @@ export class ConfigureGitUser extends React.Component<
       }
     }
 
-    const avatarURL = email ? this.avatarURLForEmail(email) : null
+    const avatarURL = ''
     this.setState({ name: name || '', email: email || '', avatarURL })
   }
 
-  private dateWithMinuteOffset(date: Date, minuteOffset: number): Date {
-    const copy = new Date(date.getTime())
-    copy.setTime(copy.getTime() + minuteOffset * 60 * 1000)
-    return copy
-  }
-
+  // private dateWithMinuteOffset(date: Date, minuteOffset: number): Date {
+  //   const copy = new Date(date.getTime())
+  //   copy.setTime(copy.getTime() + minuteOffset * 60 * 1000)
+  //   return copy
+  // }
+  //
   public render() {
-    const now = new Date()
-    const dummyAuthor1 = new CommitIdentity(
-      'Hubot',
-      this.state.email,
-      this.dateWithMinuteOffset(now, -2)
-    )
-    const dummyCommit1 = new Commit('', 'Do more things', '', dummyAuthor1, [])
-
-    const dummyAuthor3 = new CommitIdentity(
-      'Hubot',
-      this.state.email,
-      this.dateWithMinuteOffset(now, -60)
-    )
-    const dummyCommit3 = new Commit('', 'Add some things', '', dummyAuthor3, [])
-
-    // NB: We're using the name as the commit SHA:
-    //  1. `Commit` is referentially transparent wrt the SHA. So in order to get
-    //     it to update when we name changes, we need to change the SHA.
-    //  2. We don't display the SHA so the user won't ever know our secret.
-    const dummyAuthor2 = new CommitIdentity(
-      this.state.name,
-      this.state.email,
-      this.dateWithMinuteOffset(now, -30)
-    )
-    const dummyCommit2 = new Commit(
-      this.state.name,
-      'Fix all the things',
-      '',
-      dummyAuthor2,
-      []
-    )
-    const emoji = new Map()
+    // const now = new Date()
+    // const emoji = new Map()
     return (
       <div id="configure-git-user">
         <Form className="sign-in-form" onSubmit={this.save}>
           <TextBox
             label="Name"
-            placeholder="Hubot"
+            placeholder="Name"
             value={this.state.name}
             onChange={this.onNameChange}
           />
 
           <TextBox
             label="Email"
-            placeholder="hubot@wevolver.com"
+            placeholder="Email"
             value={this.state.email}
             onChange={this.onEmailChange}
           />
@@ -128,44 +98,20 @@ export class ConfigureGitUser extends React.Component<
             {this.props.children}
           </Row>
         </Form>
-
-        <div id="commit-list" className="commit-list-example">
-          <CommitListItem
-            commit={dummyCommit1}
-            emoji={emoji}
-            user={null}
-            gitHubRepository={null}
-            isLocal={false}
-          />
-          <CommitListItem
-            commit={dummyCommit2}
-            emoji={emoji}
-            user={this.getAvatarUser()}
-            gitHubRepository={null}
-            isLocal={false}
-          />
-          <CommitListItem
-            commit={dummyCommit3}
-            emoji={emoji}
-            user={null}
-            gitHubRepository={null}
-            isLocal={false}
-          />
-        </div>
       </div>
     )
   }
 
-  private getAvatarUser() {
-    const email = this.state.email
-    const avatarURL = this.state.avatarURL
-    const name = this.state.name
-    if (email && avatarURL && name) {
-      return { email, avatarURL, name }
-    } else {
-      return null
-    }
-  }
+  // private getAvatarUser() {
+  //   const email = this.state.email
+  //   const avatarURL = this.state.avatarURL
+  //   const name = this.state.name
+  //   if (email && avatarURL && name) {
+  //     return { email, avatarURL, name }
+  //   } else {
+  //     return null
+  //   }
+  // }
 
   private onNameChange = (event: React.FormEvent<HTMLInputElement>) => {
     this.setState({
@@ -177,7 +123,7 @@ export class ConfigureGitUser extends React.Component<
 
   private onEmailChange = (event: React.FormEvent<HTMLInputElement>) => {
     const email = event.currentTarget.value
-    const avatarURL = this.avatarURLForEmail(email)
+    const avatarURL = ''
 
     this.setState({
       name: this.state.name,
@@ -186,12 +132,12 @@ export class ConfigureGitUser extends React.Component<
     })
   }
 
-  private avatarURLForEmail(email: string): string | null {
-    const matchingAccount = this.props.accounts.find(
-      a => a.emails.findIndex(e => e.email === email) > -1
-    )
-    return matchingAccount ? matchingAccount.avatarURL : null
-  }
+  // private avatarURLForEmail(email: string): string | null {
+  //   const matchingAccount = this.props.accounts.find(
+  //     a => a.emails.findIndex(e => e.email === email) > -1
+  //   )
+  //   return matchingAccount ? matchingAccount.avatarURL : null
+  // }
 
   private save = async () => {
     if (this.props.onSave) {
