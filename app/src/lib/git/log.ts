@@ -65,7 +65,7 @@ export async function getCommits(
   const result = await git(
     [
       'log',
-      revisionRange,
+      // revisionRange,
       `--date=raw`,
       `--max-count=${limit}`,
       `--pretty=${prettyFormat}`,
