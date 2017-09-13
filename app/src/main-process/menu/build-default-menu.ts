@@ -268,13 +268,13 @@ export function buildDefaultMenu(
         id: 'update-branch',
         click: emit('update-branch'),
       },
-      // {
-      //   label: __DARWIN__
-      //     ? 'Merge Into Current Branch…'
-      //     : '&Merge into current branch…',
-      //   id: 'merge-branch',
-      //   click: emit('merge-branch'),
-      // },
+      {
+        label: __DARWIN__
+          ? 'Merge Into Current Branch…'
+          : '&Merge into current branch…',
+        id: 'merge-branch',
+        click: emit('merge-branch'),
+      },
       // separator,
       // {
       //   label: __DARWIN__ ? 'Compare on GitHub' : '&Compare on GitHub',

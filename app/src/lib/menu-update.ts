@@ -163,7 +163,7 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
       'update-branch',
       onNonDefaultBranch && hasDefaultBranch
     )
-    // menuStateBuilder.setEnabled('merge-branch', onBranch)
+    menuStateBuilder.setEnabled('merge-branch', onBranch)
     // menuStateBuilder.setEnabled(
     //   'compare-branch',
     //   isHostedOnGitHub && hasPublishedBranch
@@ -205,7 +205,7 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
     menuStateBuilder.disable('rename-branch')
     menuStateBuilder.disable('delete-branch')
     menuStateBuilder.disable('update-branch')
-    // menuStateBuilder.disable('merge-branch')
+    menuStateBuilder.disable('merge-branch')
     // menuStateBuilder.disable('compare-branch')
 
     menuStateBuilder.disable('push')

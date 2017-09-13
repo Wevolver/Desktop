@@ -192,7 +192,7 @@ export type Popup =
       files: ReadonlyArray<WorkingDirectoryFileChange>
     }
   | { type: PopupType.Preferences; initialSelectedTab?: PreferencesTab }
-  // | { type: PopupType.MergeBranch; repository: Repository }
+  | { type: PopupType.MergeBranch; repository: Repository }
   | { type: PopupType.RepositorySettings; repository: Repository }
   | { type: PopupType.AddRepository; path?: string }
   | { type: PopupType.CreateRepository; path?: string }

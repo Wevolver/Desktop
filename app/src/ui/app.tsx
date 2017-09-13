@@ -44,7 +44,7 @@ import { Preferences } from './preferences'
 import { Account } from '../models/account'
 import { TipState } from '../models/tip'
 import { shouldRenderApplicationMenu } from './lib/features'
-// import { Merge } from './merge-branch'
+import { Merge } from './merge-branch'
 import { RepositorySettings } from './repository-settings'
 import { AppError } from './app-error'
 import { MissingRepository } from './missing-repository'
@@ -254,8 +254,8 @@ export class App extends React.Component<IAppProps, IAppState> {
         return this.openCurrentRepositoryWorkingDirectory()
       case 'update-branch':
         return this.updateBranch()
-      // case 'merge-branch':
-      //   return this.mergeBranch()
+      case 'merge-branch':
+        return this.mergeBranch()
       case 'show-repository-settings':
         return this.showRepositorySettings()
       // case 'compare-branch':
@@ -323,20 +323,20 @@ export class App extends React.Component<IAppProps, IAppState> {
       return
     }
 
-    // this.props.dispatcher.mergeBranch(state.repository, defaultBranch.name)
+    this.props.dispatcher.mergeBranch(state.repository, defaultBranch.name)
   }
 
-  // private mergeBranch() {
-  //   const state = this.state.selectedState
-  //   if (!state || state.type !== SelectionType.Repository) {
-  //     return
-  //   }
+  private mergeBranch() {
+    const state = this.state.selectedState
+    if (!state || state.type !== SelectionType.Repository) {
+      return
+    }
 
-  //   this.props.dispatcher.showPopup({
-  //     type: PopupType.MergeBranch,
-  //     repository: state.repository,
-  //   })
-  // }
+    this.props.dispatcher.showPopup({
+      type: PopupType.MergeBranch,
+      repository: state.repository,
+    })
+  }
 
   // private compareBranch() {
   //   const htmlURL = this.getCurrentRepositoryGitHubURL()
@@ -873,26 +873,26 @@ export class App extends React.Component<IAppProps, IAppState> {
             onDismissed={this.onPopupDismissed}
           />
         )
-      // case PopupType.MergeBranch: {
-      //   const repository = popup.repository
-      //   const state = this.props.appStore.getRepositoryState(repository)
+      case PopupType.MergeBranch: {
+        const repository = popup.repository
+        const state = this.props.appStore.getRepositoryState(repository)
 
-      //   const tip = state.branchesState.tip
-      //   const currentBranch = tip.kind === TipState.Valid ? tip.branch : null
+        const tip = state.branchesState.tip
+        const currentBranch = tip.kind === TipState.Valid ? tip.branch : null
 
-      //   return (
-      //     <Merge
-      //       key="merge-branch"
-      //       dispatcher={this.props.dispatcher}
-      //       repository={repository}
-      //       allBranches={state.branchesState.allBranches}
-      //       defaultBranch={state.branchesState.defaultBranch}
-      //       recentBranches={state.branchesState.recentBranches}
-      //       currentBranch={currentBranch}
-      //       onDismissed={this.onPopupDismissed}
-      //     />
-      //   )
-      // }
+        return (
+          <Merge
+            key="merge-branch"
+            dispatcher={this.props.dispatcher}
+            repository={repository}
+            allBranches={state.branchesState.allBranches}
+            defaultBranch={state.branchesState.defaultBranch}
+            recentBranches={state.branchesState.recentBranches}
+            currentBranch={currentBranch}
+            onDismissed={this.onPopupDismissed}
+          />
+        )
+      }
       case PopupType.RepositorySettings: {
         const repository = popup.repository
         const state = this.props.appStore.getRepositoryState(repository)
