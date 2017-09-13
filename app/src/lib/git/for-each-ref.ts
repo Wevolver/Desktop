@@ -37,10 +37,10 @@ export async function getBranches(
   const names = result.stdout
   const lines = names.split(delimiterString)
 
-  log.warn('result')
-  log.warn(names)
-  log.warn(lines.length.toString())
-  log.warn(JSON.stringify(lines))
+  // log.warn('result')
+  // log.warn(names)
+  // log.warn(lines.length.toString())
+  // log.warn(JSON.stringify(lines))
 
   // Remove the trailing newline
   lines.splice(-1, 1)
