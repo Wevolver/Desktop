@@ -116,15 +116,13 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
   private renderTitle() {
     const message =
       this.state.type === 'launch'
-        ? 'Wevolver Desktop failed to launch'
-        : 'Wevolver Desktop encountered an error'
+        ? 'GitHub Desktop failed to launch'
+        : 'GitHub Desktop encountered an error'
 
     return (
       <header>
         <Octicon symbol={OcticonSymbol.stop} className="error-icon" />
-        <h1>
-          {message}
-        </h1>
+        <h1>{message}</h1>
       </header>
     )
   }
@@ -133,18 +131,18 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
     if (this.state.type === 'launch') {
       return (
         <p>
-          Wevolver Desktop encountered a catastrophic error that prevents it from
+          GitHub Desktop encountered a catastrophic error that prevents it from
           launching. This has been reported to the team, but if you encounter
-          this repeatedly please report this issue to the Wevolver Desktop{' '}
+          this repeatedly please report this issue to the GitHub Desktop{' '}
           <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
         </p>
       )
     } else {
       return (
         <p>
-          Wevolver Desktop has encountered an unrecoverable error and will need to
+          GitHub Desktop has encountered an unrecoverable error and will need to
           restart. This has been reported to the team, but if you encounter this
-          repeatedly please report this issue to the Wevolver Desktop{' '}
+          repeatedly please report this issue to the GitHub Desktop{' '}
           <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
         </p>
       )
@@ -158,19 +156,11 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
       return
     }
 
-    return (
-      <pre className="error">
-        {prepareErrorMessage(error)}
-      </pre>
-    )
+    return <pre className="error">{prepareErrorMessage(error)}</pre>
   }
 
   private renderFooter() {
-    return (
-      <div className="footer">
-        {this.renderQuitButton()}
-      </div>
-    )
+    return <div className="footer">{this.renderQuitButton()}</div>
   }
 
   private renderQuitButton() {

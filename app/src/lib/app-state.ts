@@ -19,6 +19,8 @@ import { WindowState } from './window-state'
 import { RetryAction } from './retry-actions'
 import { ExternalEditor } from '../models/editors'
 import { PreferencesTab } from '../models/preferences'
+import { Shell } from './shells'
+import { CloneRepositoryTab } from '../models/clone-repository-tab'
 
 export { ICommitMessage }
 export { IAheadBehind }
@@ -149,13 +151,25 @@ export interface IAppState {
   readonly isUpdateAvailableBannerVisible: boolean
 
   /** Whether we should show a confirmation dialog */
-  readonly confirmRepoRemoval: boolean
+  readonly askForConfirmationOnRepositoryRemoval: boolean
+
+  /** Whether we should show a confirmation dialog */
+  readonly askForConfirmationOnDiscardChanges: boolean
 
   /** The external editor to use when opening repositories */
-  readonly selectedExternalEditor: ExternalEditor
+  readonly selectedExternalEditor?: ExternalEditor
 
   /** What type of visual diff mode we should use to compare images */
   readonly imageDiffType: ImageDiffType
+
+  /** The user's preferred shell. */
+  readonly selectedShell: Shell
+
+  /** The current repository filter text. */
+  readonly repositoryFilterText: string
+
+  /** The currently selected tab for Clone Repository. */
+  readonly selectedCloneRepositoryTab: CloneRepositoryTab
 }
 
 export enum PopupType {
@@ -181,6 +195,8 @@ export enum PopupType {
   CLIInstalled,
   GenericGitAuthentication,
   ExternalEditorFailed,
+  OpenShellFailed,
+  InitializeLFS,
 }
 
 export type Popup =
@@ -192,11 +208,14 @@ export type Popup =
       files: ReadonlyArray<WorkingDirectoryFileChange>
     }
   | { type: PopupType.Preferences; initialSelectedTab?: PreferencesTab }
-  // | { type: PopupType.MergeBranch; repository: Repository }
+  | { type: PopupType.MergeBranch; repository: Repository }
   | { type: PopupType.RepositorySettings; repository: Repository }
   | { type: PopupType.AddRepository; path?: string }
   | { type: PopupType.CreateRepository; path?: string }
-  | { type: PopupType.CloneRepository; initialURL: string | null }
+  | {
+      type: PopupType.CloneRepository
+      initialURL: string | null
+    }
   | { type: PopupType.CreateBranch; repository: Repository }
   | { type: PopupType.SignIn }
   | { type: PopupType.About }
@@ -228,6 +247,8 @@ export type Popup =
       suggestAtom?: boolean
       openPreferences?: boolean
     }
+  | { type: PopupType.OpenShellFailed; message: string }
+  | { type: PopupType.InitializeLFS; repositories: ReadonlyArray<Repository> }
 
 export enum FoldoutType {
   Repository,

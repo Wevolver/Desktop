@@ -5,7 +5,7 @@ import { LinkButton } from './link-button'
 
 interface ITextBoxProps {
   /** The label for the input field. */
-  readonly label?: string
+  readonly label?: string | JSX.Element
 
   /**
    * An optional className to be applied to the rendered
@@ -117,8 +117,8 @@ export class TextBox extends React.Component<ITextBoxProps, ITextBoxState> {
    * Update the caret position of the input element if it can be reapplied.
    *
    * References:
-   *  - upstream issue: https://wevolver.com/facebook/react/issues/955
-   *  - example workaround: https://gist.wevolver.com/shiftkey/a713712182288b0870952fd5a1bfcebe
+   *  - upstream issue: https://github.com/facebook/react/issues/955
+   *  - example workaround: https://gist.github.com/shiftkey/a713712182288b0870952fd5a1bfcebe
    */
   private updateCaretPosition = () => {
     if (this.instance === null || this.props.value === undefined) {
@@ -186,9 +186,7 @@ export class TextBox extends React.Component<ITextBoxProps, ITextBoxState> {
 
     return (
       <div className="label-container">
-        <label htmlFor={this.state.inputId}>
-          {this.props.label}
-        </label>
+        <label htmlFor={this.state.inputId}>{this.props.label}</label>
         {this.renderLabelLink()}
       </div>
     )

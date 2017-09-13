@@ -41,7 +41,6 @@ export const AuthenticationErrors: ReadonlySet<DugiteError> = new Set([
   DugiteError.SSHAuthenticationFailed,
   DugiteError.HTTPSRepositoryNotFound,
   DugiteError.SSHRepositoryNotFound,
-  DugiteError.RemoteDisconnection,
 ])
 
 function getAskPassTrampolinePath(): string {

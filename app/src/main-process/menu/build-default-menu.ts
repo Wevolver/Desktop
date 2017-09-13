@@ -1,26 +1,31 @@
-import { Menu, ipcMain, shell } from 'electron'
+import { Menu, ipcMain, shell, app } from 'electron'
 import { ensureItemIds } from './ensure-item-ids'
 import { MenuEvent } from './menu-event'
 import { getLogPath } from '../../lib/logging/get-log-path'
 import { mkdirIfNeeded } from '../../lib/file-system'
-import { ExternalEditor } from '../../models/editors'
 
 import { log } from '../log'
 
+const defaultEditorLabel = __DARWIN__
+  ? 'Open in External Editor'
+  : 'Open in external editor'
+const defaultShellLabel = __DARWIN__
+  ? 'Open in Terminal'
+  : 'Open in Command Prompt'
+
 export function buildDefaultMenu(
-  selectedEditor?: ExternalEditor
+  editorLabel: string = defaultEditorLabel,
+  shellLabel: string = defaultShellLabel
 ): Electron.Menu {
-  const defaultEditorLabel = __DARWIN__ ? 'External Editor' : 'external editor'
-  const editorLabel = selectedEditor || defaultEditorLabel
   const template = new Array<Electron.MenuItemConstructorOptions>()
   const separator: Electron.MenuItemConstructorOptions = { type: 'separator' }
 
   if (__DARWIN__) {
     template.push({
-      label: 'Wevolver Desktop',
+      label: 'GitHub Desktop',
       submenu: [
         {
-          label: 'About Wevolver Desktop',
+          label: 'About GitHub Desktop',
           click: emit('show-about'),
           id: 'about',
         },
@@ -31,12 +36,12 @@ export function buildDefaultMenu(
           accelerator: 'CmdOrCtrl+,',
           click: emit('show-preferences'),
         },
-        // separator,
-        // {
-        //   label: 'Install Command Line Tool…',
-        //   id: 'install-cli',
-        //   click: emit('install-cli'),
-        // },
+        separator,
+        {
+          label: 'Install Command Line Tool…',
+          id: 'install-cli',
+          click: emit('install-cli'),
+        },
         separator,
         {
           role: 'services',
@@ -56,20 +61,20 @@ export function buildDefaultMenu(
     label: __DARWIN__ ? 'File' : '&File',
     submenu: [
       {
-        label: __DARWIN__ ? 'New Project…' : 'New &project…',
+        label: __DARWIN__ ? 'New Repository…' : 'New &repository…',
         id: 'new-repository',
         click: emit('create-repository'),
         accelerator: 'CmdOrCtrl+N',
       },
       separator,
       {
-        label: __DARWIN__ ? 'Add Local Project…' : 'Add &local project…',
+        label: __DARWIN__ ? 'Add Local Repository…' : 'Add &local repository…',
         id: 'add-local-repository',
         accelerator: 'CmdOrCtrl+O',
         click: emit('add-local-repository'),
       },
       {
-        label: __DARWIN__ ? 'Clone Project…' : 'Clo&ne project…',
+        label: __DARWIN__ ? 'Clone Repository…' : 'Clo&ne repository…',
         id: 'clone-repository',
         accelerator: 'CmdOrCtrl+Shift+O',
         click: emit('clone-repository'),
@@ -118,13 +123,13 @@ export function buildDefaultMenu(
         click: emit('select-changes'),
       },
       {
-        label: __DARWIN__ ? 'Show Commits' : '&Commits',
+        label: __DARWIN__ ? 'Show History' : '&History',
         id: 'show-history',
         accelerator: 'CmdOrCtrl+2',
         click: emit('select-history'),
       },
       {
-        label: __DARWIN__ ? 'Show Project List' : 'Project &list',
+        label: __DARWIN__ ? 'Show Repository List' : 'Repository &list',
         id: 'show-repository-list',
         accelerator: 'CmdOrCtrl+T',
         click: emit('choose-repository'),
@@ -160,6 +165,11 @@ export function buildDefaultMenu(
       {
         label: '&Reload',
         id: 'reload-window',
+        // Ctrl+Alt is interpreted as AltGr on international keyboards and this
+        // can clash with other shortcuts. We should always use Ctrl+Shift for
+        // chorded shortcuts, but this menu item is not a user-facing feature
+        // so we are going to keep this one around and save Ctrl+Shift+R for
+        // a different shortcut in the future...
         accelerator: 'CmdOrCtrl+Alt+R',
         click(item: any, focusedWindow: Electron.BrowserWindow) {
           if (focusedWindow) {
@@ -186,7 +196,7 @@ export function buildDefaultMenu(
   })
 
   template.push({
-    label: __DARWIN__ ? 'Project' : '&Project',
+    label: __DARWIN__ ? 'Repository' : '&Repository',
     id: 'repository',
     submenu: [
       {
@@ -206,15 +216,15 @@ export function buildDefaultMenu(
         id: 'remove-repository',
         click: emit('remove-repository'),
       },
-      // separator,
-      // {
-      //   id: 'view-repository-on-github',
-      //   label: __DARWIN__ ? 'View on GitHub' : '&View on GitHub',
-      //   accelerator: 'CmdOrCtrl+Alt+G',
-      //   click: emit('view-repository-on-github'),
-      // },
+      separator,
       {
-        label: __DARWIN__ ? 'Open in Terminal' : 'Op&en command prompt',
+        id: 'view-repository-on-github',
+        label: __DARWIN__ ? 'View on GitHub' : '&View on GitHub',
+        accelerator: 'CmdOrCtrl+Shift+G',
+        click: emit('view-repository-on-github'),
+      },
+      {
+        label: shellLabel,
         id: 'open-in-shell',
         accelerator: 'Ctrl+`',
         click: emit('open-in-shell'),
@@ -226,14 +236,14 @@ export function buildDefaultMenu(
         click: emit('open-working-directory'),
       },
       {
-        label: `Open in ${editorLabel}`,
+        label: editorLabel,
         id: 'open-external-editor',
         accelerator: 'CmdOrCtrl+Shift+A',
         click: emit('open-external-editor'),
       },
       separator,
       {
-        label: __DARWIN__ ? 'Project Settings…' : 'Project &settings…',
+        label: __DARWIN__ ? 'Repository Settings…' : 'Repository &settings…',
         id: 'show-repository-settings',
         click: emit('show-repository-settings'),
       },
@@ -268,26 +278,26 @@ export function buildDefaultMenu(
         id: 'update-branch',
         click: emit('update-branch'),
       },
-      // {
-      //   label: __DARWIN__
-      //     ? 'Merge Into Current Branch…'
-      //     : '&Merge into current branch…',
-      //   id: 'merge-branch',
-      //   click: emit('merge-branch'),
-      // },
-      // separator,
-      // {
-      //   label: __DARWIN__ ? 'Compare on GitHub' : '&Compare on GitHub',
-      //   id: 'compare-branch',
-      //   accelerator: 'CmdOrCtrl+Shift+C',
-      //   click: emit('compare-branch'),
-      // },
-      // {
-      //   label: __DARWIN__ ? 'Create Pull Request' : 'Create &pull request',
-      //   id: 'create-pull-request',
-      //   accelerator: 'CmdOrCtrl+R',
-      //   click: emit('create-pull-request'),
-      // },
+      {
+        label: __DARWIN__
+          ? 'Merge Into Current Branch…'
+          : '&Merge into current branch…',
+        id: 'merge-branch',
+        click: emit('merge-branch'),
+      },
+      separator,
+      {
+        label: __DARWIN__ ? 'Compare on GitHub' : '&Compare on GitHub',
+        id: 'compare-branch',
+        accelerator: 'CmdOrCtrl+Shift+C',
+        click: emit('compare-branch'),
+      },
+      {
+        label: __DARWIN__ ? 'Create Pull Request' : 'Create &pull request',
+        id: 'create-pull-request',
+        accelerator: 'CmdOrCtrl+R',
+        click: emit('create-pull-request'),
+      },
     ],
   })
 
@@ -307,14 +317,23 @@ export function buildDefaultMenu(
   const submitIssueItem: Electron.MenuItemConstructorOptions = {
     label: __DARWIN__ ? 'Report Issue…' : 'Report issue…',
     click() {
-      shell.openExternal('https://wevolver.com')
+      shell.openExternal('https://github.com/desktop/desktop/issues/new')
+    },
+  }
+
+  const contactSupportItem: Electron.MenuItemConstructorOptions = {
+    label: __DARWIN__ ? 'Contact GitHub Support…' : '&Contact GitHub support…',
+    click() {
+      shell.openExternal(
+        `https://github.com/contact?from_desktop_app=1&app_version=${app.getVersion()}`
+      )
     },
   }
 
   const showUserGuides: Electron.MenuItemConstructorOptions = {
     label: 'Show User Guides',
     click() {
-      shell.openExternal('https://www.wevolver.com/wevolver.moderator/documentation/blob/master/readme.md')
+      shell.openExternal('https://help.github.com/desktop-beta/guides/')
     },
   }
 
@@ -332,7 +351,12 @@ export function buildDefaultMenu(
     },
   }
 
-  const helpItems = [submitIssueItem, showUserGuides, showLogsItem]
+  const helpItems = [
+    submitIssueItem,
+    contactSupportItem,
+    showUserGuides,
+    showLogsItem,
+  ]
 
   if (__DEV__) {
     helpItems.push(
@@ -362,7 +386,7 @@ export function buildDefaultMenu(
         ...helpItems,
         separator,
         {
-          label: '&About Wevolver Desktop',
+          label: '&About GitHub Desktop',
           click: emit('show-about'),
           id: 'about',
         },

@@ -6,7 +6,7 @@ import { CommitIdentity } from '../../models/commit-identity'
 
 /**
  * Map the raw status text from Git to an app-friendly value
- * shamelessly borrowed from Wevolver Desktop (Windows)
+ * shamelessly borrowed from GitHub Desktop (Windows)
  */
 function mapStatus(rawStatus: string): AppFileStatus {
   const status = rawStatus.trim()
@@ -65,7 +65,7 @@ export async function getCommits(
   const result = await git(
     [
       'log',
-      // revisionRange,
+      revisionRange,
       `--date=raw`,
       `--max-count=${limit}`,
       `--pretty=${prettyFormat}`,

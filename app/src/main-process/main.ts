@@ -5,7 +5,6 @@ import { app, Menu, MenuItem, ipcMain, BrowserWindow, shell } from 'electron'
 import { AppWindow } from './app-window'
 import { buildDefaultMenu, MenuEvent, findMenuItemByID } from './menu'
 import { shellNeedsPatching, updateEnvironmentForProcess } from '../lib/shell'
-import { ExternalEditor } from '../models/editors'
 import { parseAppURL } from '../lib/parse-app-url'
 import { handleSquirrelEvent } from './squirrel-updater'
 import { fatalError } from '../lib/fatal-error'
@@ -151,16 +150,12 @@ app.on('ready', () => {
   Menu.setApplicationMenu(menu)
 
   ipcMain.on(
-    'external-editor-changed',
+    'update-preferred-app-menu-item-labels',
     (
       event: Electron.IpcMessageEvent,
-      {
-        selectedEditor,
-      }: {
-        selectedEditor: ExternalEditor
-      }
+      labels: { editor?: string; shell: string }
     ) => {
-      menu = buildDefaultMenu(selectedEditor)
+      menu = buildDefaultMenu(labels.editor, labels.shell)
       Menu.setApplicationMenu(menu)
       if (mainWindow) {
         mainWindow.sendAppMenu()
@@ -243,10 +238,7 @@ app.on('ready', () => {
       }
 
       const window = BrowserWindow.fromWebContents(event.sender)
-      // TODO: read https://github.com/desktop/desktop/issues/1003
-      // to clean up this sin against T Y P E S
-      const anyMenu: any = menu
-      anyMenu.popup(window, { async: true })
+      menu.popup(window, { async: true })
     }
   )
 
@@ -269,8 +261,8 @@ app.on('ready', () => {
         message,
       }: { certificate: Electron.Certificate; message: string }
     ) => {
-      // This API's only implemented on macOS right now.
-      if (__DARWIN__) {
+      // This API is only implemented for macOS and Windows right now.
+      if (__DARWIN__ || __WIN32__) {
         onDidLoad(window => {
           window.showCertificateTrustDialog(certificate, message)
         })

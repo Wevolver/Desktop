@@ -10,7 +10,7 @@ interface ISignInDotComProps {
   readonly signInState: SignInState | null
 }
 
-/** The Welcome flow step to login to wevolver.com. */
+/** The Welcome flow step to login to GitHub.com. */
 export class SignInDotCom extends React.Component<ISignInDotComProps, {}> {
   public componentWillMount() {
     this.props.dispatcher.beginDotComSignIn()
@@ -25,7 +25,7 @@ export class SignInDotCom extends React.Component<ISignInDotComProps, {}> {
 
     return (
       <div id="sign-in-dot-com">
-        <h1 className="welcome-title">Sign in to Wevolver.com</h1>
+        <h1 className="welcome-title">Sign in to GitHub.com</h1>
 
         <SignIn signInState={state} dispatcher={this.props.dispatcher}>
           <Button onClick={this.cancel}>Cancel</Button>
@@ -35,6 +35,6 @@ export class SignInDotCom extends React.Component<ISignInDotComProps, {}> {
   }
 
   private cancel = () => {
-    // this.props.advance(WelcomeStep.Start)
+    this.props.advance(WelcomeStep.Start)
   }
 }

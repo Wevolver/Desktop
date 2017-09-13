@@ -36,7 +36,7 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps, {}> {
   private renderBranchFoldout = (): JSX.Element | null => {
     const repositoryState = this.props.repositoryState
     const branchesState = repositoryState.branchesState
-    log.warn(JSON.stringify(branchesState))
+
     const tip = repositoryState.branchesState.tip
     const currentBranch = tip.kind === TipState.Valid ? tip.branch : null
 

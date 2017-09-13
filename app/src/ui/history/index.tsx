@@ -15,7 +15,7 @@ import { IGitHubUser } from '../../lib/dispatcher'
 import { Resizable } from '../resizable'
 
 // At some point we'll make index.tsx only be exports
-// see https://wevolver.com/desktop/desktop/issues/383
+// see https://github.com/desktop/desktop/issues/383
 export { HistorySidebar } from './sidebar'
 
 interface IHistoryProps {

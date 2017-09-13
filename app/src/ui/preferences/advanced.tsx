@@ -3,24 +3,32 @@ import { DialogContent } from '../dialog'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
 import { Row } from '../../ui/lib/row'
-// import { SamplesURL } from '../../lib/stats'
+import { SamplesURL } from '../../lib/stats'
 import { Select } from '../lib/select'
-import { getAvailableEditors } from '../../lib/editors/lookup'
+import { ExternalEditor, parse as parseEditor } from '../../models/editors'
+import { Shell, parse as parseShell } from '../../lib/shells'
 
 interface IAdvancedPreferencesProps {
-  readonly isOptedOut: boolean
-  readonly confirmRepoRemoval: boolean
-  readonly selectedExternalEditor: string
-  readonly onOptOutSet: (checked: boolean) => void
-  readonly onConfirmRepoRemovalSet: (checked: boolean) => void
-  readonly onSelectedEditorChanged: (editor: string) => void
+  readonly optOutOfUsageTracking: boolean
+  readonly confirmRepositoryRemoval: boolean
+  readonly confirmDiscardChanges: boolean
+  readonly availableEditors: ReadonlyArray<ExternalEditor>
+  readonly selectedExternalEditor?: ExternalEditor
+  readonly availableShells: ReadonlyArray<Shell>
+  readonly selectedShell: Shell
+  readonly onOptOutofReportingchanged: (checked: boolean) => void
+  readonly onConfirmDiscardChangesChanged: (checked: boolean) => void
+  readonly onConfirmRepositoryRemovalChanged: (checked: boolean) => void
+  readonly onSelectedEditorChanged: (editor: ExternalEditor) => void
+  readonly onSelectedShellChanged: (shell: Shell) => void
 }
 
 interface IAdvancedPreferencesState {
-  readonly reportingOptOut: boolean
-  readonly availableEditors?: ReadonlyArray<string>
-  readonly selectedExternalEditor?: string
-  readonly confirmRepoRemoval: boolean
+  readonly optOutOfUsageTracking: boolean
+  readonly selectedExternalEditor?: ExternalEditor
+  readonly selectedShell: Shell
+  readonly confirmRepositoryRemoval: boolean
+  readonly confirmDiscardChanges: boolean
 }
 
 export class Advanced extends React.Component<
@@ -31,67 +39,99 @@ export class Advanced extends React.Component<
     super(props)
 
     this.state = {
-      reportingOptOut: this.props.isOptedOut,
-      confirmRepoRemoval: this.props.confirmRepoRemoval,
+      optOutOfUsageTracking: this.props.optOutOfUsageTracking,
+      confirmRepositoryRemoval: this.props.confirmRepositoryRemoval,
+      confirmDiscardChanges: this.props.confirmDiscardChanges,
       selectedExternalEditor: this.props.selectedExternalEditor,
+      selectedShell: this.props.selectedShell,
     }
   }
 
-  public async componentDidMount() {
-    const availableEditors = await getAvailableEditors()
-    const editorLabels = availableEditors.map(editor => editor.editor)
-    let selectedExternalEditor = this.props.selectedExternalEditor
-
-    if (editorLabels.length) {
-      const indexOf = editorLabels.indexOf(selectedExternalEditor)
+  public async componentWillReceiveProps(nextProps: IAdvancedPreferencesProps) {
+    const editors = nextProps.availableEditors
+    let selectedExternalEditor = nextProps.selectedExternalEditor
+    if (editors.length) {
+      const indexOf = selectedExternalEditor
+        ? editors.indexOf(selectedExternalEditor)
+        : -1
       if (indexOf === -1) {
-        // if the editor cannot be found, select the first entry
-        // so that the user can immediately save changes
-        selectedExternalEditor = editorLabels[0]
-        this.props.onSelectedEditorChanged(selectedExternalEditor)
+        selectedExternalEditor = editors[0]
+        nextProps.onSelectedEditorChanged(selectedExternalEditor)
       }
     }
 
-    this.setState({ availableEditors: editorLabels, selectedExternalEditor })
+    const shells = nextProps.availableShells
+    let selectedShell = nextProps.selectedShell
+    if (shells.length) {
+      const indexOf = shells.indexOf(selectedShell)
+      if (indexOf === -1) {
+        selectedShell = shells[0]
+        nextProps.onSelectedShellChanged(selectedShell)
+      }
+    }
+
+    this.setState({
+      selectedExternalEditor,
+      selectedShell,
+    })
   }
 
-  // private onReportingOptOutChanged = (
-  //   event: React.FormEvent<HTMLInputElement>
-  // ) => {
-  //   const value = !event.currentTarget.checked
+  private onReportingOptOutChanged = (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
+    const value = !event.currentTarget.checked
 
-  //   this.setState({ reportingOptOut: value })
-  //   this.props.onOptOutSet(value)
-  // }
+    this.setState({ optOutOfUsageTracking: value })
+    this.props.onOptOutofReportingchanged(value)
+  }
 
-  private onConfirmRepoRemovalChanged = (
+  private onConfirmDiscardChangesChanged = (
     event: React.FormEvent<HTMLInputElement>
   ) => {
     const value = event.currentTarget.checked
 
-    this.setState({ confirmRepoRemoval: value })
-    this.props.onConfirmRepoRemovalSet(value)
+    this.setState({ confirmDiscardChanges: value })
+    this.props.onConfirmDiscardChangesChanged(value)
+  }
+
+  private onConfirmRepositoryRemovalChanged = (
+    event: React.FormEvent<HTMLInputElement>
+  ) => {
+    const value = event.currentTarget.checked
+
+    this.setState({ confirmRepositoryRemoval: value })
+    this.props.onConfirmRepositoryRemovalChanged(value)
   }
 
   private onSelectedEditorChanged = (
     event: React.FormEvent<HTMLSelectElement>
   ) => {
-    const value = event.currentTarget.value
-    this.setState({ selectedExternalEditor: value })
-    this.props.onSelectedEditorChanged(value)
+    const value = parseEditor(event.currentTarget.value)
+    if (value) {
+      this.setState({ selectedExternalEditor: value })
+      this.props.onSelectedEditorChanged(value)
+    }
   }
 
-  // public reportDesktopUsageLabel() {
-  //   return (
-  //     <span>
-  //       Help Wevolver Desktop improve by submitting{' '}
-  //       <LinkButton uri={SamplesURL}>anonymous usage data</LinkButton>
-  //     </span>
-  //   )
-  // }
+  private onSelectedShellChanged = (
+    event: React.FormEvent<HTMLSelectElement>
+  ) => {
+    const value = parseShell(event.currentTarget.value)
+    this.setState({ selectedShell: value })
+    this.props.onSelectedShellChanged(value)
+  }
+
+  public reportDesktopUsageLabel() {
+    return (
+      <span>
+        Help GitHub Desktop improve by submitting{' '}
+        <LinkButton uri={SamplesURL}>anonymous usage data</LinkButton>
+      </span>
+    )
+  }
 
   private renderExternalEditor() {
-    const options = this.state.availableEditors || []
+    const options = this.props.availableEditors
     const label = __DARWIN__ ? 'External Editor' : 'External editor'
 
     if (options.length === 0) {
@@ -102,9 +142,7 @@ export class Advanced extends React.Component<
       // which we display when the select list is empty
       return (
         <div className="select-component no-options-found">
-          <label>
-            {label}
-          </label>
+          <label>{label}</label>
           <span>
             No editors found.{' '}
             <LinkButton uri="https://atom.io/">Install Atom?</LinkButton>
@@ -119,11 +157,29 @@ export class Advanced extends React.Component<
         value={this.state.selectedExternalEditor}
         onChange={this.onSelectedEditorChanged}
       >
-        {options.map(n =>
+        {options.map(n => (
           <option key={n} value={n}>
             {n}
           </option>
-        )}
+        ))}
+      </Select>
+    )
+  }
+
+  private renderSelectedShell() {
+    const options = this.props.availableShells
+
+    return (
+      <Select
+        label="Shell"
+        value={this.state.selectedShell}
+        onChange={this.onSelectedShellChanged}
+      >
+        {options.map(n => (
+          <option key={n} value={n}>
+            {n}
+          </option>
+        ))}
       </Select>
     )
   }
@@ -131,18 +187,45 @@ export class Advanced extends React.Component<
   public render() {
     return (
       <DialogContent>
+        <Row>{this.renderExternalEditor()}</Row>
+        <Row>{this.renderSelectedShell()}</Row>
         <Row>
-          {this.renderExternalEditor()}
+          <Checkbox
+            label={this.reportDesktopUsageLabel()}
+            value={
+              this.state.optOutOfUsageTracking ? (
+                CheckboxValue.Off
+              ) : (
+                CheckboxValue.On
+              )
+            }
+            onChange={this.onReportingOptOutChanged}
+          />
         </Row>
         <Row>
           <Checkbox
-            label="Show confirmation dialog before removing projects"
+            label="Show confirmation dialog before removing repositories"
             value={
-              this.state.confirmRepoRemoval
-                ? CheckboxValue.On
-                : CheckboxValue.Off
+              this.state.confirmRepositoryRemoval ? (
+                CheckboxValue.On
+              ) : (
+                CheckboxValue.Off
+              )
             }
-            onChange={this.onConfirmRepoRemovalChanged}
+            onChange={this.onConfirmRepositoryRemovalChanged}
+          />
+        </Row>
+        <Row>
+          <Checkbox
+            label="Show confirmation dialog before discarding changes"
+            value={
+              this.state.confirmDiscardChanges ? (
+                CheckboxValue.On
+              ) : (
+                CheckboxValue.Off
+              )
+            }
+            onChange={this.onConfirmDiscardChangesChanged}
           />
         </Row>
       </DialogContent>

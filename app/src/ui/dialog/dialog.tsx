@@ -150,7 +150,7 @@ export class Dialog extends React.Component<IDialogProps, IDialogState> {
 
   private clearDismissGraceTimeout() {
     if (this.dismissGraceTimeoutId !== undefined) {
-      clearTimeout(this.dismissGraceTimeoutId)
+      window.clearTimeout(this.dismissGraceTimeoutId)
       this.dismissGraceTimeoutId = undefined
     }
   }
@@ -204,7 +204,7 @@ export class Dialog extends React.Component<IDialogProps, IDialogState> {
   private onWindowFocus = () => {
     // On Windows, a click which focuses the window will also get passed down
     // into the DOM. But we don't want to dismiss the dialog based on that
-    // click. See https://wevolver.com/desktop/desktop/issues/2486.
+    // click. See https://github.com/desktop/desktop/issues/2486.
     if (__WIN32__) {
       this.clearClickDismissalTimer()
 
@@ -219,7 +219,7 @@ export class Dialog extends React.Component<IDialogProps, IDialogState> {
 
   private clearClickDismissalTimer() {
     if (this.disableClickDismissalTimeoutId) {
-      clearTimeout(this.disableClickDismissalTimeoutId)
+      window.clearTimeout(this.disableClickDismissalTimeoutId)
       this.disableClickDismissalTimeoutId = null
     }
   }

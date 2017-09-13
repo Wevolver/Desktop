@@ -32,6 +32,7 @@ import {
   TokenStore,
   gitAuthenticationErrorHandler,
   externalEditorErrorHandler,
+  openShellErrorHandler,
 } from '../lib/dispatcher'
 import { shellNeedsPatching, updateEnvironmentForProcess } from '../lib/shell'
 import { installDevGlobals } from './install-globals'
@@ -54,7 +55,7 @@ if (shellNeedsPatching(process)) {
 enableSourceMaps()
 
 // Tell dugite where to find the git environment,
-// see https://wevolver.com/desktop/dugite/pull/85
+// see https://github.com/desktop/dugite/pull/85
 process.env['LOCAL_GIT_DIRECTORY'] = Path.resolve(__dirname, 'git')
 
 // We're using a polyfill for the upcoming CSS4 `:focus-ring` pseudo-selector.
@@ -63,7 +64,7 @@ process.env['LOCAL_GIT_DIRECTORY'] = Path.resolve(__dirname, 'git')
 // gives better visiblity to individuals who navigate with the keyboard.
 //
 // See:
-//   https://wevolver.com/WICG/focus-ring
+//   https://github.com/WICG/focus-ring
 //   Focus Ring! -- A11ycasts #16: https://youtu.be/ilj2P5-5CjI
 require('wicg-focus-ring')
 
@@ -123,6 +124,7 @@ const dispatcher = new Dispatcher(appStore)
 
 dispatcher.registerErrorHandler(defaultErrorHandler)
 dispatcher.registerErrorHandler(externalEditorErrorHandler)
+dispatcher.registerErrorHandler(openShellErrorHandler)
 dispatcher.registerErrorHandler(gitAuthenticationErrorHandler)
 dispatcher.registerErrorHandler(pushNeedsPullHandler)
 dispatcher.registerErrorHandler(backgroundTaskHandler)

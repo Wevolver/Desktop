@@ -1,5 +1,3 @@
-
-
 import * as Path from 'path'
 import * as Fs from 'fs'
 import * as React from 'react'
@@ -10,8 +8,8 @@ import { LinkButton } from '../lib/link-button'
 import { ButtonGroup } from '../lib/button-group'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 
-const WebsiteURL = 'https://wevolver.com'
-const RepositoryURL = 'https://wevolver.com'
+const WebsiteURL = 'https://desktop.github.com'
+const RepositoryURL = 'https://github.com/desktop/desktop'
 
 interface IAcknowledgementsProps {
   /** The function to call when the dialog should be dismissed. */
@@ -67,7 +65,9 @@ export class Acknowledgements extends React.Component<
 
   private renderLicenses(licenses: Licenses) {
     const elements = []
-    for (const [index, key] of Object.keys(licenses).sort().entries()) {
+    for (const [index, key] of Object.keys(licenses)
+      .sort()
+      .entries()) {
       // The first entry is Desktop itself. We don't need to thank us.
       if (index === 0) {
         continue
@@ -79,11 +79,7 @@ export class Acknowledgements extends React.Component<
 
       if (repository) {
         const uri = normalizedGitHubURL(repository)
-        nameElement = (
-          <LinkButton uri={uri}>
-            {key}
-          </LinkButton>
-        )
+        nameElement = <LinkButton uri={uri}>{key}</LinkButton>
       } else {
         nameElement = key
       }
@@ -98,11 +94,7 @@ export class Acknowledgements extends React.Component<
         licenseText = 'Unknown license'
       }
 
-      const nameHeader = (
-        <h2 key={`${key}-header`}>
-          {nameElement}
-        </h2>
-      )
+      const nameHeader = <h2 key={`${key}-header`}>{nameElement}</h2>
       const licenseParagraph = (
         <p key={`${key}-text`} className="license-text">
           {licenseText}
@@ -122,11 +114,7 @@ export class Acknowledgements extends React.Component<
     if (licenses) {
       const key = `desktop@${this.props.applicationVersion}`
       const entry = licenses[key]
-      desktopLicense = (
-        <p className="license-text">
-          {entry.sourceText}
-        </p>
-      )
+      desktopLicense = <p className="license-text">{entry.sourceText}</p>
     }
 
     return (
@@ -138,7 +126,7 @@ export class Acknowledgements extends React.Component<
       >
         <DialogContent>
           <p>
-            <LinkButton uri={WebsiteURL}>Wevolver Desktop</LinkButton> is an open
+            <LinkButton uri={WebsiteURL}>GitHub Desktop</LinkButton> is an open
             source project published under the MIT License. You can view the
             source code and contribute to this project on{' '}
             <LinkButton uri={RepositoryURL}>GitHub</LinkButton>.
@@ -146,7 +134,7 @@ export class Acknowledgements extends React.Component<
 
           {desktopLicense}
 
-          <p>Wevolver Desktop also distributes these libraries:</p>
+          <p>GitHub Desktop also distributes these libraries:</p>
 
           {licenses ? this.renderLicenses(licenses) : <Loading />}
         </DialogContent>
@@ -164,7 +152,7 @@ export class Acknowledgements extends React.Component<
 /** Normalize a package URL to a GitHub URL. */
 function normalizedGitHubURL(url: string): string {
   let newURL = url
-  newURL = newURL.replace('git+https://wevolver.com', 'https://wevolver.com')
-  newURL = newURL.replace('git+ssh://git@wevolver.com', 'https://wevolver.com')
+  newURL = newURL.replace('git+https://github.com', 'https://github.com')
+  newURL = newURL.replace('git+ssh://git@github.com', 'https://github.com')
   return newURL
 }

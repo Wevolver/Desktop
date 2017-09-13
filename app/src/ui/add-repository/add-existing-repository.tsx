@@ -94,11 +94,11 @@ export class AddExistingRepository extends React.Component<
       <Row className="warning-helper-text">
         <Octicon symbol={OcticonSymbol.alert} />
         <p>
-          This directory does not appear to be a Git project.
+          This directory does not appear to be a Git repository.
           <br />
           Would you like to{' '}
           <LinkButton onClick={this.onCreateRepositoryClicked}>
-            create a project
+            create a repository
           </LinkButton>{' '}
           here instead?
         </p>
@@ -112,7 +112,7 @@ export class AddExistingRepository extends React.Component<
     return (
       <Dialog
         id="add-existing-repository"
-        title={__DARWIN__ ? 'Add Local Project' : 'Add local project'}
+        title={__DARWIN__ ? 'Add Local Repository' : 'Add local repository'}
         onSubmit={this.addRepository}
         onDismissed={this.props.onDismissed}
       >
@@ -121,7 +121,7 @@ export class AddExistingRepository extends React.Component<
             <TextBox
               value={this.state.path}
               label={__DARWIN__ ? 'Local Path' : 'Local path'}
-              placeholder="project path"
+              placeholder="repository path"
               onValueChanged={this.onPathChanged}
               autoFocus={true}
             />
@@ -133,7 +133,7 @@ export class AddExistingRepository extends React.Component<
         <DialogFooter>
           <ButtonGroup>
             <Button disabled={disabled} type="submit">
-              {__DARWIN__ ? 'Add Project' : 'Add project'}
+              {__DARWIN__ ? 'Add Repository' : 'Add repository'}
             </Button>
             <Button onClick={this.props.onDismissed}>Cancel</Button>
           </ButtonGroup>
@@ -171,6 +171,8 @@ export class AddExistingRepository extends React.Component<
   }
 
   private addRepository = async () => {
+    this.props.onDismissed()
+
     const resolvedPath = this.resolvedPath(this.state.path)
     const repositories = await this.props.dispatcher.addRepositories([
       resolvedPath,
@@ -180,8 +182,6 @@ export class AddExistingRepository extends React.Component<
       const repository = repositories[0]
       this.props.dispatcher.selectRepository(repository)
     }
-
-    this.props.onDismissed()
   }
 
   private onCreateRepositoryClicked = () => {

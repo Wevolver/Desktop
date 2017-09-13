@@ -25,7 +25,7 @@ export class SignInEnterprise extends React.Component<
     return (
       <div id="sign-in-enterprise">
         <h1 className="welcome-title">
-          Sign in to your Wevolver Enterprise server
+          Sign in to your GitHub Enterprise server
         </h1>
 
         <SignIn signInState={state} dispatcher={this.props.dispatcher}>
@@ -36,6 +36,6 @@ export class SignInEnterprise extends React.Component<
   }
 
   private cancel = () => {
-    // this.props.advance(WelcomeStep.Start)
+    this.props.advance(WelcomeStep.Start)
   }
 }

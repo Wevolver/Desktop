@@ -179,7 +179,7 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       return (
         <DialogContent>
           <p>
-            Your Wevolver Enterprise instance requires you to sign in with your
+            Your GitHub Enterprise instance requires you to sign in with your
             browser.
           </p>
         </DialogContent>
@@ -231,16 +231,14 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
   ) {
     return (
       <DialogContent>
-        <p>
-          {getWelcomeMessage(state.type)}
-        </p>
+        <p>{getWelcomeMessage(state.type)}</p>
         <Row>
           <TextBox
             label="Authentication code"
             value={this.state.otpToken}
             onValueChanged={this.onOTPTokenChanged}
             labelLinkText={`What's this?`}
-            labelLinkUri="https://help.wevolver.com/articles/providing-your-2fa-authentication-code/"
+            labelLinkUri="https://help.github.com/articles/providing-your-2fa-authentication-code/"
           />
         </Row>
       </DialogContent>
@@ -279,11 +277,9 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
 
     const disabled = state.loading
 
-    const errors = state.error
-      ? <DialogError>
-          {state.error.message}
-        </DialogError>
-      : null
+    const errors = state.error ? (
+      <DialogError>{state.error.message}</DialogError>
+    ) : null
 
     return (
       <Dialog

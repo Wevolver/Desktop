@@ -2,7 +2,7 @@ import { Emitter, Disposable } from 'event-kit'
 import { IDataStore, ISecureStore } from './stores'
 import { getKeyForAccount } from '../auth'
 import { Account } from '../../models/account'
-import { API } from '../api'
+import { API, EmailVisibility } from '../api'
 import { fatalError } from '../fatal-error'
 
 /** The data-only interface for storage. */
@@ -11,7 +11,7 @@ interface IEmail {
   /**
    * Represents whether GitHub has confirmed the user has access to this
    * email address. New users require a verified email address before
-   * they can sign into Wevolver Desktop.
+   * they can sign into GitHub Desktop.
    */
   readonly verified: boolean
   /**
@@ -19,6 +19,9 @@ interface IEmail {
    * are provided for associating commit authors with the one GitHub account.
    */
   readonly primary: boolean
+
+  /** The way in which the email is visible. */
+  readonly visibility: EmailVisibility
 }
 
 /** The data-only interface for storage. */
@@ -75,11 +78,11 @@ export class AccountsStore {
     await this.loadingPromise
 
     let updated = account
-    // try {
-    //   updated = await updatedAccount(account)
-    // } catch (e) {
-    //   log.warn(`Failed to fetch user ${account.login}`, e)
-    // }
+    try {
+      updated = await updatedAccount(account)
+    } catch (e) {
+      log.warn(`Failed to fetch user ${account.login}`, e)
+    }
 
     await this.secureStore.setItem(
       getKeyForAccount(updated),

@@ -306,11 +306,11 @@ export class CreateRepository extends React.Component<
           value={this.state.gitIgnore}
           onChange={this.onGitIgnoreChange}
         >
-          {options.map(n =>
+          {options.map(n => (
             <option key={n} value={n}>
               {n}
             </option>
-          )}
+          ))}
         </Select>
       </Row>
     )
@@ -331,17 +331,17 @@ export class CreateRepository extends React.Component<
           value={this.state.license}
           onChange={this.onLicenseChange}
         >
-          {featuredLicenses.map(l =>
+          {featuredLicenses.map(l => (
             <option key={l.name} value={l.name}>
               {l.name}
             </option>
-          )}
+          ))}
           <option disabled={true}>────────────────────</option>
-          {nonFeaturedLicenses.map(l =>
+          {nonFeaturedLicenses.map(l => (
             <option key={l.name} value={l.name}>
               {l.name}
             </option>
-          )}
+          ))}
         </Select>
       </Row>
     )
@@ -402,7 +402,7 @@ export class CreateRepository extends React.Component<
       <Dialog
         id="create-repository"
         title={
-          __DARWIN__ ? 'Create a New Project' : 'Create a new project'
+          __DARWIN__ ? 'Create a New Repository' : 'Create a new repository'
         }
         loading={this.state.creating}
         onSubmit={this.createRepository}
@@ -413,7 +413,7 @@ export class CreateRepository extends React.Component<
             <TextBox
               value={this.state.name}
               label="Name"
-              placeholder="project name"
+              placeholder="repository name"
               onChange={this.onNameChanged}
               autoFocus={true}
             />
@@ -437,11 +437,13 @@ export class CreateRepository extends React.Component<
 
           <Row>
             <Checkbox
-              label="Initialize this project with a README"
+              label="Initialize this repository with a README"
               value={
-                this.state.createWithReadme
-                  ? CheckboxValue.On
-                  : CheckboxValue.Off
+                this.state.createWithReadme ? (
+                  CheckboxValue.On
+                ) : (
+                  CheckboxValue.Off
+                )
               }
               onChange={this.onCreateWithReadmeChange}
             />
@@ -454,7 +456,7 @@ export class CreateRepository extends React.Component<
         <DialogFooter>
           <ButtonGroup>
             <Button type="submit" disabled={disabled}>
-              {__DARWIN__ ? 'Create Project' : 'Create project'}
+              {__DARWIN__ ? 'Create Repository' : 'Create repository'}
             </Button>
 
             <Button onClick={this.props.onDismissed}>Cancel</Button>

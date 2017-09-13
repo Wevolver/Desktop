@@ -48,6 +48,7 @@ interface IChangesSidebarProps {
   readonly isCommitting: boolean
   readonly isPushPullFetchInProgress: boolean
   readonly gitHubUserStore: GitHubUserStore
+  readonly askForConfirmationOnDiscardChanges: boolean
 }
 
 export class ChangesSidebar extends React.Component<IChangesSidebarProps, {}> {
@@ -134,21 +135,29 @@ export class ChangesSidebar extends React.Component<IChangesSidebarProps, {}> {
   }
 
   private onDiscardChanges = (file: WorkingDirectoryFileChange) => {
-    this.props.dispatcher.showPopup({
-      type: PopupType.ConfirmDiscardChanges,
-      repository: this.props.repository,
-      files: [file],
-    })
+    if (!this.props.askForConfirmationOnDiscardChanges) {
+      this.props.dispatcher.discardChanges(this.props.repository, [file])
+    } else {
+      this.props.dispatcher.showPopup({
+        type: PopupType.ConfirmDiscardChanges,
+        repository: this.props.repository,
+        files: [file],
+      })
+    }
   }
 
   private onDiscardAllChanges = (
     files: ReadonlyArray<WorkingDirectoryFileChange>
   ) => {
-    this.props.dispatcher.showPopup({
-      type: PopupType.ConfirmDiscardChanges,
-      repository: this.props.repository,
-      files,
-    })
+    if (!this.props.askForConfirmationOnDiscardChanges) {
+      this.props.dispatcher.discardChanges(this.props.repository, files)
+    } else {
+      this.props.dispatcher.showPopup({
+        type: PopupType.ConfirmDiscardChanges,
+        repository: this.props.repository,
+        files,
+      })
+    }
   }
 
   private onIgnore = (pattern: string) => {
@@ -248,7 +257,7 @@ export class ChangesSidebar extends React.Component<IChangesSidebarProps, {}> {
     const selectedFileID = changesState.selectedFileID
 
     // TODO: I think user will expect the avatar to match that which
-    // they have configured in wevolver.com as well as GHE so when we add
+    // they have configured in GitHub.com as well as GHE so when we add
     // support for GHE we should revisit this and try to update the logic
     // to look up based on email _and_ host.
     const email = this.props.commitAuthor ? this.props.commitAuthor.email : null

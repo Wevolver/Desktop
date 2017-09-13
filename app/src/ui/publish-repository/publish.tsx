@@ -87,14 +87,13 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
           onTabClicked={this.onTabClicked}
           selectedIndex={this.state.currentTab}
         >
-          <span>Wevolver.com</span>
+          <span>GitHub.com</span>
+          <span>Enterprise</span>
         </TabBar>
 
-        {this.state.error
-          ? <DialogError>
-              {this.state.error.message}
-            </DialogError>
-          : null}
+        {this.state.error ? (
+          <DialogError>{this.state.error.message}</DialogError>
+        ) : null}
 
         {this.renderContent()}
         {this.renderFooter()}
@@ -114,11 +113,7 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
         />
       )
     } else {
-      return (
-        <DialogContent>
-          {this.renderSignInTab(tab)}
-        </DialogContent>
-      )
+      return <DialogContent>{this.renderSignInTab(tab)}</DialogContent>
     }
   }
 
@@ -145,7 +140,7 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
         return (
           <CallToAction actionTitle={signInTitle} onAction={this.signInDotCom}>
             <div>
-              Sign in to your Wevolver.com account to access your repositories.
+              Sign in to your GitHub.com account to access your repositories.
             </div>
           </CallToAction>
         )
@@ -156,7 +151,7 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
             onAction={this.signInEnterprise}
           >
             <div>
-              If you have a Wevolver Enterprise account at work, sign in to it to
+              If you have a GitHub Enterprise account at work, sign in to it to
               get access to your repositories.
             </div>
           </CallToAction>

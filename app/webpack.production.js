@@ -16,8 +16,16 @@ const config = {
       compact: true,
       minified: true,
       comments: false,
-      presets: ['minify'],
+      presets: [
+        [
+          'minify',
+          {
+            evaluate: false,
+          },
+        ],
+      ],
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 }
 

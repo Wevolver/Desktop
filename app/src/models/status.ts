@@ -30,7 +30,7 @@ export enum GitStatusEntry {
   UpdatedButUnmerged,
 }
 
-/** The file status as represented in Wevolver Desktop. */
+/** The file status as represented in GitHub Desktop. */
 export enum AppFileStatus {
   New,
   Modified,

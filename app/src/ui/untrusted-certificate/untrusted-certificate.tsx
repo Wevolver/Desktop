@@ -32,14 +32,17 @@ export class UntrustedCertificate extends React.Component<
   public render() {
     const host = URL.parse(this.props.url).hostname
     const type = __DARWIN__ ? 'warning' : 'error'
-    const buttonGroup = __DARWIN__
-      ? <ButtonGroup destructive={true}>
-          <Button type="submit">Cancel</Button>
-          <Button onClick={this.onContinue}>View Certificate</Button>
-        </ButtonGroup>
-      : <ButtonGroup>
-          <Button type="submit">Close</Button>
-        </ButtonGroup>
+    const buttonGroup = __DARWIN__ ? (
+      <ButtonGroup destructive={true}>
+        <Button type="submit">Cancel</Button>
+        <Button onClick={this.onContinue}>View Certificate</Button>
+      </ButtonGroup>
+    ) : (
+      <ButtonGroup>
+        <Button type="submit">Close</Button>
+        <Button onClick={this.onContinue}>Add certificate</Button>
+      </ButtonGroup>
+    )
     return (
       <Dialog
         title={__DARWIN__ ? 'Untrusted Server' : 'Untrusted server'}
@@ -49,7 +52,7 @@ export class UntrustedCertificate extends React.Component<
       >
         <DialogContent>
           <p>
-            Wevolver Desktop cannot verify the identity of {host}. The certificate
+            GitHub Desktop cannot verify the identity of {host}. The certificate
             ({this.props.certificate.subjectName}) is invalid or untrusted.{' '}
             <strong>
               This may indicate attackers are trying to steal your data.
@@ -57,9 +60,9 @@ export class UntrustedCertificate extends React.Component<
           </p>
           <p>In some cases, this may be expected. For example:</p>
           <ul>
-            <li>If this is a Wevolver Enterprise trial.</li>
+            <li>If this is a GitHub Enterprise trial.</li>
             <li>
-              If your Wevolver Enterprise instance is run on an unusual top-level
+              If your GitHub Enterprise instance is run on an unusual top-level
               domain.
             </li>
           </ul>
@@ -68,9 +71,7 @@ export class UntrustedCertificate extends React.Component<
             administrator.
           </p>
         </DialogContent>
-        <DialogFooter>
-          {buttonGroup}
-        </DialogFooter>
+        <DialogFooter>{buttonGroup}</DialogFooter>
       </Dialog>
     )
   }

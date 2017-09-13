@@ -31,6 +31,7 @@ interface IRepositoryProps {
   readonly gitHubUserStore: GitHubUserStore
   readonly onViewCommitOnGitHub: (SHA: string) => void
   readonly imageDiffType: ImageDiffType
+  readonly askForConfirmationOnDiscardChanges: boolean
 }
 
 const enum Tab {
@@ -51,14 +52,14 @@ export class RepositoryView extends React.Component<IRepositoryProps, {}> {
       <TabBar selectedIndex={selectedTab} onTabClicked={this.onTabClicked}>
         <span className="with-indicator">
           <span>Changes</span>
-          {hasChanges
-            ? <Octicon
-                className="indicator"
-                symbol={OcticonSymbol.primitiveDot}
-              />
-            : null}
+          {hasChanges ? (
+            <Octicon
+              className="indicator"
+              symbol={OcticonSymbol.primitiveDot}
+            />
+          ) : null}
         </span>
-        <span>Commits</span>
+        <span>History</span>
       </TabBar>
     )
   }
@@ -93,6 +94,9 @@ export class RepositoryView extends React.Component<IRepositoryProps, {}> {
         gitHubUserStore={this.props.gitHubUserStore}
         isCommitting={this.props.state.isCommitting}
         isPushPullFetchInProgress={this.props.state.isPushPullFetchInProgress}
+        askForConfirmationOnDiscardChanges={
+          this.props.askForConfirmationOnDiscardChanges
+        }
       />
     )
   }

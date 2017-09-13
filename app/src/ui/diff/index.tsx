@@ -730,7 +730,7 @@ export class Diff extends React.Component<IDiffProps, {}> {
     // the diff type marker. But for selections that span multiple lines, we'll
     // trim it.
     const doc = editor.getDoc()
-    const lines: ReadonlyArray<string> = (doc as any).getSelections()
+    const lines = doc.getSelections()
     const selectionRanges = doc.listSelections()
     const lineContent: Array<string> = []
 
@@ -773,7 +773,7 @@ export class Diff extends React.Component<IDiffProps, {}> {
         <div className="panel empty">
           <img src={BlankSlateImage} className="blankslate-image" />
           The diff returned by Git is {diffSizeMB}MB ({diff.length} bytes),
-          which is larger than what can be displayed in Wevolver Desktop.
+          which is larger than what can be displayed in GitHub Desktop.
         </div>
       )
     }

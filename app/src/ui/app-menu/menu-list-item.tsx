@@ -40,7 +40,7 @@ interface IMenuListItemProps {
  *
  * Example: CommandOrControl becomes either '⌘' or 'Ctrl' depending on platform.
  *
- * See https://wevolver.com/electron/electron/blob/fb74f55/docs/api/accelerator.md
+ * See https://github.com/electron/electron/blob/fb74f55/docs/api/accelerator.md
  */
 function getPlatformSpecificNameOrSymbolForModifier(modifier: string): string {
   switch (modifier.toLowerCase()) {
@@ -104,21 +104,21 @@ export class MenuListItem extends React.Component<IMenuListItemProps, {}> {
     }
 
     const arrow =
-      item.type === 'submenuItem' && this.props.renderSubMenuArrow !== false
-        ? <Octicon
-            className="submenu-arrow"
-            symbol={OcticonSymbol.triangleRight}
-          />
-        : null
+      item.type === 'submenuItem' && this.props.renderSubMenuArrow !== false ? (
+        <Octicon
+          className="submenu-arrow"
+          symbol={OcticonSymbol.triangleRight}
+        />
+      ) : null
 
     const accelerator =
       item.type !== 'submenuItem' &&
       item.accelerator &&
-      this.props.renderAcceleratorText !== false
-        ? <div className="accelerator">
-            {friendlyAcceleratorText(item.accelerator)}
-          </div>
-        : null
+      this.props.renderAcceleratorText !== false ? (
+        <div className="accelerator">
+          {friendlyAcceleratorText(item.accelerator)}
+        </div>
+      ) : null
 
     const className = classNames(
       'menu-item',

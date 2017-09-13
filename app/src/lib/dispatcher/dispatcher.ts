@@ -27,7 +27,7 @@ import { executeMenuItem } from '../../ui/main-process-proxy'
 import { AppMenu, ExecutableMenuItem } from '../../models/app-menu'
 import { ILaunchStats } from '../stats'
 import { fatalError, assertNever } from '../fatal-error'
-import { isGitOnPath } from '../open-shell'
+import { isGitOnPath } from '../is-git-on-path'
 import { shell } from './app-shell'
 import {
   URLActionType,
@@ -42,6 +42,8 @@ import {
 import { installCLI } from '../../ui/lib/install-cli'
 import * as GenericGitAuth from '../generic-git-auth'
 import { RetryAction, RetryActionType } from '../retry-actions'
+import { Shell } from '../shells'
+import { CloneRepositoryTab } from '../../models/clone-repository-tab'
 
 /**
  * An error handler function.
@@ -143,6 +145,11 @@ export class Dispatcher {
     file: FileChange
   ): Promise<void> {
     return this.appStore._changeHistoryFileSelection(repository, file)
+  }
+
+  /** Set the repository filter text. */
+  public setRepositoryFilterText(text: string): Promise<void> {
+    return this.appStore._setRepositoryFilterText(text)
   }
 
   /** Select the repository. */
@@ -783,6 +790,12 @@ export class Dispatcher {
         const repository = await this.openRepository(url, branchToClone)
         if (repository) {
           this.handleCloneInDesktopOptions(repository, action)
+        } else {
+          log.warn(
+            `Open Repository from URL failed, did not find repository: ${url} - payload: ${JSON.stringify(
+              action
+            )}`
+          )
         }
         break
 
@@ -826,7 +839,18 @@ export class Dispatcher {
    * Sets the user's preference so that confirmation to remove repo is not asked
    */
   public setConfirmRepoRemovalSetting(value: boolean): Promise<void> {
-    return this.appStore._setConfirmRepoRemoval(value)
+    return this.appStore._setConfirmRepositoryRemovalSetting(value)
+  }
+
+  /**
+   * Sets the user's preference so that confirmation to discard changes is not asked
+   *
+   * @param {boolean} value
+   * @returns {Promise<void>}
+   * @memberof Dispatcher
+   */
+  public setConfirmDiscardChangesSetting(value: boolean): Promise<void> {
+    return this.appStore._setConfirmDiscardChangesSetting(value)
   }
 
   /**
@@ -834,6 +858,13 @@ export class Dispatcher {
    */
   public setExternalEditor(editor: ExternalEditor): Promise<void> {
     return this.appStore._setExternalEditor(editor)
+  }
+
+  /**
+   * Sets the user's preferred shell.
+   */
+  public setShell(shell: Shell): Promise<void> {
+    return this.appStore._setShell(shell)
   }
 
   /**
@@ -852,9 +883,12 @@ export class Dispatcher {
   ): Promise<void> {
     const { filepath, pr, branch } = action
 
-    // we need to refetch for a forked PR and check that out
     if (pr && branch) {
+      // we need to refetch for a forked PR and check that out
       await this.fetchRefspec(repository, `pull/${pr}/head:${branch}`)
+    }
+
+    if (branch) {
       await this.checkoutBranch(repository, branch)
     }
 
@@ -893,7 +927,11 @@ export class Dispatcher {
       return this.checkoutBranch(repo, branch)
     } else {
       return this.appStore._startOpenInDesktop(() => {
-        this.showPopup({ type: PopupType.CloneRepository, initialURL: url })
+        this.changeCloneRepositoriesTab(CloneRepositoryTab.Generic)
+        this.showPopup({
+          type: PopupType.CloneRepository,
+          initialURL: url,
+        })
       })
     }
   }
@@ -957,5 +995,22 @@ export class Dispatcher {
   /** Change the selected image diff type. */
   public changeImageDiffType(type: ImageDiffType): Promise<void> {
     return this.appStore._changeImageDiffType(type)
+  }
+
+  /** Install the global Git LFS filters. */
+  public installGlobalLFSFilters(): Promise<void> {
+    return this.appStore._installGlobalLFSFilters()
+  }
+
+  /** Install the LFS filters */
+  public installLFSHooks(
+    repositories: ReadonlyArray<Repository>
+  ): Promise<void> {
+    return this.appStore._installLFSHooks(repositories)
+  }
+
+  /** Change the selected Clone Repository tab. */
+  public changeCloneRepositoriesTab(tab: CloneRepositoryTab): Promise<void> {
+    return this.appStore._changeCloneRepositoriesTab(tab)
   }
 }

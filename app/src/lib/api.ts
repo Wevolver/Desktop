@@ -1,7 +1,6 @@
 import * as OS from 'os'
 import * as URL from 'url'
 import { Account } from '../models/account'
-import { IEmail } from '../models/email'
 
 import {
   request,
@@ -11,7 +10,7 @@ import {
   urlWithQueryString,
 } from './http'
 import { AuthenticationMode } from './2fa'
-// import { uuid } from './uuid'
+import { uuid } from './uuid'
 
 const username: () => Promise<string> = require('username')
 
@@ -33,7 +32,7 @@ enum HttpStatusCode {
 }
 
 /** The note URL used for authorizations the app creates. */
-// const NoteURL = 'https://desktop.github.com/'
+const NoteURL = 'https://desktop.github.com/'
 
 /**
  * Information about a repository as returned by the GitHub API.
@@ -65,6 +64,7 @@ export interface IAPIUser {
   readonly login: string
   readonly avatar_url: string
   readonly name: string
+  readonly type: 'User' | 'Organization'
 }
 
 /** The users we get from the mentionables endpoint. */
@@ -83,18 +83,20 @@ export interface IAPIMentionableUser {
 }
 
 /**
+ * `null` can be returned by the API for legacy reasons. A non-null value is
+ * set for the primary email address currently, but in the future visibility
+ * may be defined for each email address.
+ */
+export type EmailVisibility = 'public' | 'private' | null
+
+/**
  * Information about a user's email as returned by the GitHub API.
  */
 export interface IAPIEmail {
   readonly email: string
   readonly verified: boolean
   readonly primary: boolean
-  /**
-   * `null` can be returned by the API for legacy reasons. A non-null value is
-   * set for the primary email address currently, but in the future visibility
-   * may be defined for each email address.
-   */
-  readonly visibility: 'public' | 'private' | null
+  readonly visibility: EmailVisibility
 }
 
 /** Information about an issue as returned by the GitHub API. */
@@ -123,7 +125,7 @@ interface IAPIAccessToken {
 
 /** The partial server response when creating a new authorization on behalf of a user */
 interface IAPIAuthorization {
-  readonly access_token: string
+  readonly token: string
 }
 
 /** The response we receive from fetching mentionables. */
@@ -209,10 +211,22 @@ export class API {
     }
   }
 
+  /** Fetch all repos a user has access to. */
+  public async fetchRepositories(): Promise<ReadonlyArray<
+    IAPIRepository
+  > | null> {
+    try {
+      return await this.fetchAll<IAPIRepository>('user/repos')
+    } catch (error) {
+      log.warn(`fetchRepositories: ${error}`)
+      return null
+    }
+  }
+
   /** Fetch the logged in account. */
   public async fetchAccount(): Promise<IAPIUser> {
     try {
-      const response = await this.request('GET', 'api/2/users')
+      const response = await this.request('GET', 'user')
       const result = await parsedResponse<IAPIUser>(response)
       return result
     } catch (e) {
@@ -222,16 +236,9 @@ export class API {
   }
 
   /** Fetch the current user's emails. */
-  public async fetchEmails(): Promise<ReadonlyArray<IEmail>> {
-    const isDotCom = this.endpoint === getDotComAPIEndpoint()
-
-    // workaround for /user/public_emails throwing a 500
-    // while we investigate the API issue
-    // see https://github.com/desktop/desktop/issues/1508 for context
+  public async fetchEmails(): Promise<ReadonlyArray<IAPIEmail>> {
     try {
-      // GitHub Enterprise does not have the concept of private emails
-      const apiPath = isDotCom ? 'user/public_emails' : 'user/emails'
-      const response = await this.request('GET', apiPath)
+      const response = await this.request('GET', 'user/emails')
       const result = await parsedResponse<ReadonlyArray<IAPIEmail>>(response)
 
       return Array.isArray(result) ? result : []
@@ -358,7 +365,11 @@ export class API {
    */
   private async fetchAll<T>(path: string): Promise<ReadonlyArray<T>> {
     const buf = new Array<T>()
-    let nextPath: string | null = path
+
+    const params = {
+      per_page: '100',
+    }
+    let nextPath: string | null = urlWithQueryString(path, params)
 
     do {
       const response = await this.request('GET', nextPath)
@@ -479,8 +490,8 @@ export async function createAuthorization(
   password: string,
   oneTimePassword: string | null
 ): Promise<AuthorizationResponse> {
-  // const creds = Buffer.from(`${login}:${password}`, 'utf8').toString('base64')
-  // const authorization = `Basic ${creds}`
+  const creds = Buffer.from(`${login}:${password}`, 'utf8').toString('base64')
+  const authorization = `Basic ${creds}`
   const optHeader = oneTimePassword ? { 'X-GitHub-OTP': oneTimePassword } : {}
 
   const note = await getNote()
@@ -489,21 +500,17 @@ export async function createAuthorization(
     endpoint,
     null,
     'POST',
-    // 'authorizations',
-    'o/proxy-client-token',
+    'authorizations',
     {
-      // scopes: Scopes,
-      // client_id: ClientID,
-      // client_secret: ClientSecret,
+      scopes: Scopes,
+      client_id: ClientID,
+      client_secret: ClientSecret,
       note: note,
-      // note_url: NoteURL,
-      // fingerprint: uuid(),
-      grant_type: 'password',
-      password: password,
-      username: login
+      note_url: NoteURL,
+      fingerprint: uuid(),
     },
     {
-      // Authorization: authorization,
+      Authorization: authorization,
       ...optHeader,
     }
   )
@@ -511,7 +518,7 @@ export async function createAuthorization(
   try {
     const result = await parsedResponse<IAPIAuthorization>(response)
     if (result) {
-      const token = result.access_token
+      const token = result.token
       if (token && typeof token === 'string' && token.length) {
         return { kind: AuthorizationResponseKind.Authorized, token }
       }
@@ -581,18 +588,18 @@ export async function fetchUser(
   endpoint: string,
   token: string
 ): Promise<Account> {
-  // const api = new API(endpoint, token)
+  const api = new API(endpoint, token)
   try {
-    // const user = await api.fetchAccount()
-    // const emails = await api.fetchEmails()
+    const user = await api.fetchAccount()
+    const emails = await api.fetchEmails()
     return new Account(
-      'rod',// user.login,
+      user.login,
       endpoint,
       token,
-      [],// emails,
-      '',// user.avatar_url,
-      0,// user.id,
-      'Test Name'// user.name
+      emails,
+      user.avatar_url,
+      user.id,
+      user.name
     )
   } catch (e) {
     log.warn(`fetchUser: failed with endpoint ${endpoint}`, e)
@@ -638,7 +645,7 @@ async function getNote(): Promise<string> {
     )
   }
 
-  return `Wevolver Desktop on ${localUsername}@${OS.hostname()}`
+  return `GitHub Desktop on ${localUsername}@${OS.hostname()}`
 }
 
 /**
@@ -695,8 +702,8 @@ export function getDotComAPIEndpoint(): string {
   if (envEndpoint && envEndpoint.length > 0) {
     return envEndpoint
   }
-  return 'https://www.wevolver.com'
-  // return 'https://api.github.com'
+
+  return 'https://api.github.com'
 }
 
 /** Get the account for the endpoint. */
