@@ -213,7 +213,7 @@ function getMenuState(state: IAppState): Map<MenuIDs, IMenuItemState> {
   }
 
   const welcomeScopedIds: ReadonlyArray<MenuIDs> = [
-    'new-repository',
+    // 'new-repository',
     'add-local-repository',
     'clone-repository',
     // 'preferences',

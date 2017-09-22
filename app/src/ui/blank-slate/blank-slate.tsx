@@ -30,13 +30,6 @@ export class BlankSlateView extends React.Component<IBlankSlateProps, {}> {
           {__DARWIN__ ? 'No Projects Found' : 'No projects found'}
         </div>
         <div className="content">
-          <div className="callout">
-            <Octicon symbol={OcticonSymbol.plus} />
-            <div>Create a new project and publish it to Wevolver</div>
-            <Button onClick={this.props.onCreate}>
-              {__DARWIN__ ? 'Create New Project' : 'Create new project'}
-            </Button>
-          </div>
 
           <div className="callout">
             <Octicon symbol={OcticonSymbol.deviceDesktop} />

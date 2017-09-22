@@ -56,13 +56,6 @@ export function buildDefaultMenu(
     label: __DARWIN__ ? 'File' : '&File',
     submenu: [
       {
-        label: __DARWIN__ ? 'New Project…' : 'New &project…',
-        id: 'new-repository',
-        click: emit('create-repository'),
-        accelerator: 'CmdOrCtrl+N',
-      },
-      separator,
-      {
         label: __DARWIN__ ? 'Add Local Project…' : 'Add &local project…',
         id: 'add-local-repository',
         accelerator: 'CmdOrCtrl+O',
