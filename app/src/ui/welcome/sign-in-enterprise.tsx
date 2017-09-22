@@ -36,6 +36,6 @@ export class SignInEnterprise extends React.Component<
   }
 
   private cancel = () => {
-    this.props.advance(WelcomeStep.Start)
+    // this.props.advance(WelcomeStep.Start)
   }
 }

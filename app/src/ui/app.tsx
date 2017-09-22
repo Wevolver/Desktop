@@ -1467,7 +1467,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       <Welcome
         dispatcher={this.props.dispatcher}
         appStore={this.props.appStore}
-        signInState={this.state.signInState}
+        // signInState={this.state.signInState}
       />
     )
   }
