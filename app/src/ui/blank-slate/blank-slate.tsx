@@ -32,16 +32,6 @@ export class BlankSlateView extends React.Component<IBlankSlateProps, {}> {
         <div className="content">
 
           <div className="callout">
-            <Octicon symbol={OcticonSymbol.deviceDesktop} />
-            <div>
-              Add an existing project on your computer and publish it to Wevolver
-            </div>
-            <Button onClick={this.props.onAdd}>
-              {__DARWIN__ ? 'Add a Local Project' : 'Add a local project'}
-            </Button>
-          </div>
-
-          <div className="callout">
             <Octicon symbol={OcticonSymbol.repoClone} />
             <div>Clone an existing project from Wevolver to your computer</div>
             <Button onClick={this.props.onClone}>
@@ -51,8 +41,6 @@ export class BlankSlateView extends React.Component<IBlankSlateProps, {}> {
         </div>
 
         <p className="footer">
-          Alternatively, you can drag and drop a local project here to add
-          it.
         </p>
       </UiView>
     )
