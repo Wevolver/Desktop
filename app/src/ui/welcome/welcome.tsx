@@ -34,9 +34,7 @@ interface IWelcomeState {
 
 // Note that we're reusing the welcome illustrations in the crash process, any
 // changes to these will have to be reflected in the crash process as well.
-const WelcomeRightImageUri = `file:///${__dirname}/static/welcome-illustration-right.svg`
-const WelcomeLeftTopImageUri = `file:///${__dirname}/static/welcome-illustration-left-top.svg`
-const WelcomeLeftBottomImageUri = `file:///${__dirname}/static/welcome-illustration-left-bottom.svg`
+const righturi = `file:///${__dirname}/static/printplaat2.png`
 
 /** The Welcome flow. */
 export class Welcome extends React.Component<IWelcomeProps, IWelcomeState> {
@@ -49,7 +47,7 @@ export class Welcome extends React.Component<IWelcomeProps, IWelcomeState> {
   public componentWillMount() {
     // this.done()
   }
-  
+
   public componentWillReceiveProps(nextProps: IWelcomeProps) {
     // this.advanceOnSuccessfulSignIn(nextProps)
   }
@@ -173,16 +171,11 @@ export class Welcome extends React.Component<IWelcomeProps, IWelcomeState> {
         <div className="welcome-left">
           <div className="welcome-content">
             {this.getComponentForCurrentStep()}
-            <img className="welcome-graphic-top" src={WelcomeLeftTopImageUri} />
-            <img
-              className="welcome-graphic-bottom"
-              src={WelcomeLeftBottomImageUri}
-            />
           </div>
         </div>
 
         <div className="welcome-right">
-          <img className="welcome-graphic" src={WelcomeRightImageUri} />
+          <img className="welcome-graphic" src={righturi} />
         </div>
       </UiView>
     )
