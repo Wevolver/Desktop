@@ -116,14 +116,11 @@
   position: relative;
 
   .welcome-graphic-bottom {
-    position: absolute;
-    right: var(--spacing);
-    bottom: var(--spacing);
-
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    padding: 0 0 0 0;
     max-height: 100%;
     width: 40%;
-    // I hate this but we'll have to live with it for beta.
     z-index: -1;
   }
 
@@ -161,14 +158,15 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  padding: var(--spacing-quad);
   position: relative;
   overflow: hidden;
 
   .welcome-graphic {
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     max-height: 100%;
     width: 100%;
+    padding: 0 0 0 0;
   }
 }
 
