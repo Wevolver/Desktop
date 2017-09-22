@@ -15,10 +15,10 @@ export class ConfigureGit extends React.Component<IConfigureGitProps, {}> {
   public render() {
     return (
       <div id="configure-git">
-        <h1 className="welcome-title">Configure Git</h1>
+        <h1 className="welcome-title">Who are you?</h1>
         <p className="welcome-text">
-          This is used to identify the commits you create. Anyone will be able
-          to see this information if you publish commits.
+          This is used to identify the revisions (commits) you create. When publishing revisions to a public project anyone will be able
+          to see this information. Only your team members will see these details in private projects.
         </p>
 
         <ConfigureGitUser
