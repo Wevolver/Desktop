@@ -48,7 +48,7 @@ export class GenericGitAuthentication extends React.Component<
     return (
       <Dialog
         id="generic-git-auth"
-        title={__DARWIN__ ? `Authentication Failed` : `Authentication failed`}
+        title={__DARWIN__ ? `Authentication` : `Authentication`}
         onDismissed={this.props.onDismiss}
         onSubmit={this.save}
       >
