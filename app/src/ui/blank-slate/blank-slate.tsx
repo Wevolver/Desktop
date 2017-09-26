@@ -33,7 +33,7 @@ export class BlankSlateView extends React.Component<IBlankSlateProps, {}> {
 
           <div className="callout">
             <Octicon symbol={OcticonSymbol.repoClone} />
-            <div>Clone an existing project from Wevolver to your computer</div>
+            <div>Clone a project from Wevolver to your computer</div>
             <Button onClick={this.props.onClone}>
               {__DARWIN__ ? 'Clone a Project' : 'Clone a project'}
             </Button>

@@ -15,10 +15,13 @@ export class ConfigureGit extends React.Component<IConfigureGitProps, {}> {
   public render() {
     return (
       <div id="configure-git">
-        <h1 className="welcome-title">Who are you?</h1>
+        <h1 className="welcome-title">Hello, who are you?</h1>
         <p className="welcome-text">
-          This is used to identify the revisions (commits) you create. When publishing revisions to a public project anyone will be able
-          to see this information. Only your team members will see these details in private projects.
+        This information is used to identify the revisions (commits) you create.
+        <br></br>
+        <br></br>
+        If you publish revisions to a public project, anyone will be able to see this information. In the case of private projects only your team members will see these details.
+        Note: these identity details do not need to be your Wevolver account login credentials. You will enter those in the next step.
         </p>
 
         <ConfigureGitUser
