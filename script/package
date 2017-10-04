@@ -105,10 +105,10 @@ function packageWindows() {
     .createWindowsInstaller(options)
     .then(() => {
       console.log(`Installers created in ${outputDir}`)
-      cp.execSync(`powershell ${cleanupCertificatePath}`)
+      // cp.execSync(`powershell ${cleanupCertificatePath}`)
     })
     .catch(e => {
-      cp.execSync(`powershell ${cleanupCertificatePath}`)
+      // cp.execSync(`powershell ${cleanupCertificatePath}`)
       console.error(`Error packaging: ${e}`)
       process.exit(1)
     })
