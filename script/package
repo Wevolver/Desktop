@@ -90,7 +90,7 @@ function packageWindows() {
     certificateFile: path.join(__dirname, '../WevolverWindowsCert.p12'),
     certificatePassword: process.env.WINDOWS_CERT_PASSWORD
   }
-
+  console.log(options)
   if (distInfo.shouldMakeDelta()) {
     options.remoteReleases = distInfo.getUpdatesURL()
   }
