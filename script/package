@@ -87,6 +87,8 @@ function packageWindows() {
     title: productName,
     setupExe: distInfo.getWindowsStandaloneName(),
     setupMsi: distInfo.getWindowsInstallerName(),
+    certificateFile: path.join(__dirname, '../WevolverWindowsCert.p12'),
+    certificatePassword: process.env.WINDOWS_CERT_PASSWORD
   }
 
   if (distInfo.shouldMakeDelta()) {
