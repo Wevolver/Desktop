@@ -87,8 +87,10 @@ function packageWindows() {
     title: productName,
     setupExe: distInfo.getWindowsStandaloneName(),
     setupMsi: distInfo.getWindowsInstallerName(),
+    certificateFile: 'C:\\Users\\wevolver\\Desktop\\WevolverWindowsCert.p12', // path.join(__dirname, '..', 'WevolverWindowsCert.p12'),
+    certificatePassword: process.env.WINDOWS_CERT_PASSWORD
   }
-
+  console.log(options)
   if (distInfo.shouldMakeDelta()) {
     options.remoteReleases = distInfo.getUpdatesURL()
   }
@@ -103,10 +105,10 @@ function packageWindows() {
     .createWindowsInstaller(options)
     .then(() => {
       console.log(`Installers created in ${outputDir}`)
-      cp.execSync(`powershell ${cleanupCertificatePath}`)
+      // cp.execSync(`powershell ${cleanupCertificatePath}`)
     })
     .catch(e => {
-      cp.execSync(`powershell ${cleanupCertificatePath}`)
+      // cp.execSync(`powershell ${cleanupCertificatePath}`)
       console.error(`Error packaging: ${e}`)
       process.exit(1)
     })
