@@ -54,9 +54,7 @@ export class GenericGitAuthentication extends React.Component<
       >
         <DialogContent>
           <p>
-            We were unable to authenticate with{' '}
-            <Monospaced>{this.props.hostname}</Monospaced>. Please enter your
-            username and password to try again.
+            Please enter your username and password for <Monospaced>wevolver.com</Monospaced>.
           </p>
 
           <Row>
@@ -81,7 +79,7 @@ export class GenericGitAuthentication extends React.Component<
         <DialogFooter>
           <ButtonGroup>
             <Button type="submit" disabled={disabled}>
-              {__DARWIN__ ? 'Save and Retry' : 'Save and retry'}
+              {__DARWIN__ ? 'Submit' : 'Submit'}
             </Button>
             <Button onClick={this.props.onDismiss}>Cancel</Button>
           </ButtonGroup>
