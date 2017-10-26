@@ -77,7 +77,7 @@ import { GenericGitAuthentication } from './generic-git-auth'
 import { RetryAction } from '../lib/retry-actions'
 
 /** The interval at which we should check for updates. */
-const UpdateCheckInterval = 1000 * 60 * 60 * 4
+// const UpdateCheckInterval = 1000 * 60 * 60 * 4
 
 const SendStatsInterval = 1000 * 60 * 60 * 4
 
@@ -182,8 +182,8 @@ export class App extends React.Component<IAppProps, IAppState> {
       this.props.dispatcher.postError(error)
     })
 
-    setInterval(() => this.checkForUpdates(true), UpdateCheckInterval)
-    this.checkForUpdates(true)
+    // setInterval(() => this.checkForUpdates(true), UpdateCheckInterval)
+    // this.checkForUpdates(true)
 
     ipcRenderer.on(
       'launch-timing-stats',
@@ -283,16 +283,16 @@ export class App extends React.Component<IAppProps, IAppState> {
     })
   }
 
-  private checkForUpdates(inBackground: boolean) {
-    if (
-      __RELEASE_CHANNEL__ === 'development' ||
-      __RELEASE_CHANNEL__ === 'test'
-    ) {
-      return
-    }
+  // private checkForUpdates(inBackground: boolean) {
+  //   if (
+  //     __RELEASE_CHANNEL__ === 'development' ||
+  //     __RELEASE_CHANNEL__ === 'test'
+  //   ) {
+  //     return
+  //   }
 
-    updateStore.checkForUpdates(inBackground)
-  }
+  //   updateStore.checkForUpdates(inBackground)
+  // }
 
   private getDotComAccount(): Account | null {
     const state = this.props.appStore.getState()
@@ -1091,7 +1091,7 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private onCheckForUpdates = () => {
-    this.checkForUpdates(false)
+    // this.checkForUpdates(false)
   }
 
   private showAcknowledgements = () => {

@@ -149,7 +149,8 @@ function getReleaseChannel() {
 }
 
 function getUpdatesURL() {
-  return `https://central.github.com/api/deployments/desktop/desktop/latest?version=${getVersion()}&env=${getReleaseChannel()}`
+  return ''
+  // return `https://central.github.com/api/deployments/desktop/desktop/latest?version=${getVersion()}&env=${getReleaseChannel()}`
 }
 
 function shouldMakeDelta() {
