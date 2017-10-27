@@ -104,6 +104,7 @@ class UpdateStore {
   }
 
   private onUpdateAvailable = () => {
+    log.warn('onUpdateAvailable')
     this.touchLastChecked()
     this.status = UpdateStatus.UpdateAvailable
     this.emitDidChange()
@@ -164,7 +165,8 @@ class UpdateStore {
     }
 
     this.userInitiatedUpdate = !inBackground
-
+    log.warn('__UPDATES_URL__')
+    log.warn(__UPDATES_URL__)
     try {
       autoUpdater.setFeedURL(__UPDATES_URL__)
       autoUpdater.checkForUpdates()
