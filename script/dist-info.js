@@ -149,7 +149,8 @@ function getReleaseChannel() {
 }
 
 function getUpdatesURL() {
-  return `https://hazel-wedkfgjsqx.now.sh/update/${process.platform}/${getVersion()}`
+  return `https://hazel-wedkfgjsqx.now.sh/download/${process.platform}`
+  // return `https://hazel-wedkfgjsqx.now.sh/update/${process.platform}/${getVersion()}`
   // getVersion()
 }
 
