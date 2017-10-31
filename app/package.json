@@ -3,7 +3,7 @@
   "productName": "Wevolver-Desktop",
   "bundleID": "com.wevolver.GitClient",
   "companyName": "Wevolver",
-  "version": "0.8.6",
+  "version": "0.8.9",
   "main": "./main.js",
   "repository": {
     "type": "git",
