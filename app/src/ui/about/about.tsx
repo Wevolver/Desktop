@@ -5,7 +5,7 @@ import { Button } from '../lib/button'
 import { ButtonGroup } from '../lib/button-group'
 import { Dialog, DialogError, DialogContent, DialogFooter } from '../dialog'
 // import { Octicon, OcticonSymbol } from '../octicons'
-import { LinkButton } from '../lib/link-button'
+// import { LinkButton } from '../lib/link-button'
 import { updateStore, IUpdateState, UpdateStatus } from '../lib/update-store'
 import { Disposable } from 'event-kit'
 import { Loading } from '../lib/loading'
@@ -42,7 +42,7 @@ interface IAboutState {
   readonly updateState: IUpdateState
 }
 
-const releaseNotesUri = 'https://www.wevolver.com/desktop'
+// const releaseNotesUri = 'https://www.wevolver.com/desktop'
 
 /**
  * A dialog that presents information about the
@@ -230,9 +230,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   public render() {
     const name = this.props.applicationName
     const version = this.props.applicationVersion
-    const releaseNotesLink = (
-      <LinkButton uri={releaseNotesUri}>release notes</LinkButton>
-    )
+
 
     return (
       <Dialog
@@ -246,8 +244,6 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           <p className="no-padding">
             
             Version {version}
-            {' '}
-            ({releaseNotesLink})
           </p>
           {this.renderUpdateDetails()}
           {this.renderUpdateButton()}
