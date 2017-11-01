@@ -243,7 +243,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           <h2>{name}</h2>
           <p className="no-padding">
             
-            Version {version}
+           - Version {version} -
           </p>
           {this.renderUpdateDetails()}
           {this.renderUpdateButton()}
