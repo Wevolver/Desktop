@@ -111,7 +111,7 @@ export function buildDefaultMenu(
         click: emit('select-changes'),
       },
       {
-        label: __DARWIN__ ? 'Show Commits' : '&Commits',
+        label: __DARWIN__ ? 'Show Project History' : '&Project History',
         id: 'show-history',
         accelerator: 'CmdOrCtrl+2',
         click: emit('select-history'),
