@@ -16,7 +16,7 @@ describe('parseAppURL', () => {
   describe('oauth', () => {
     it('returns right name', () => {
       const result = parseAppURL(
-        'x-github-client://oauth?code=18142422&state=e4cd2dea-1567-46aa-8eb2-c7f56e943187'
+        'x-wevolver-client://oauth?code=18142422&state=e4cd2dea-1567-46aa-8eb2-c7f56e943187'
       )
       expect(result.name).to.equal('oauth')
 
@@ -28,33 +28,33 @@ describe('parseAppURL', () => {
   describe('openRepo', () => {
     it('returns right name', () => {
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/desktop/desktop'
+        'wevolver-mac://openRepo/https://github.com/Wevolver/desktop'
       )
       expect(result.name).to.equal('open-repository-from-url')
 
       const openRepo = result as IOpenRepositoryFromURLAction
-      expect(openRepo.url).to.equal('https://github.com/desktop/desktop.git')
+      expect(openRepo.url).to.equal('https://github.com/Wevolver/desktop.git')
     })
 
     it('returns unknown when no remote defined', () => {
-      const result = parseAppURL('github-mac://openRepo/')
+      const result = parseAppURL('wevolver-mac://openRepo/')
       expect(result.name).to.equal('unknown')
     })
 
     it('adds branch name if set', () => {
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/desktop/desktop?branch=cancel-2fa-flow'
+        'wevolver-mac://openRepo/https://github.com/Wevolver/desktop?branch=cancel-2fa-flow'
       )
       expect(result.name).to.equal('open-repository-from-url')
 
       const openRepo = result as IOpenRepositoryFromURLAction
-      expect(openRepo.url).to.equal('https://github.com/desktop/desktop.git')
+      expect(openRepo.url).to.equal('https://github.com/Wevolver/desktop.git')
       expect(openRepo.branch).to.equal('cancel-2fa-flow')
     })
 
     it('adds pull request ID if found', () => {
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/octokit/octokit.net?branch=pr%2F1569&pr=1569'
+        'wevolver-mac://openRepo/https://github.com/octokit/octokit.net?branch=pr%2F1569&pr=1569'
       )
       expect(result.name).to.equal('open-repository-from-url')
 
@@ -68,7 +68,7 @@ describe('parseAppURL', () => {
 
     it('returns unknown for unexpected pull request input', () => {
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/octokit/octokit.net?branch=bar&pr=foo'
+        'wevolver-mac://openRepo/https://github.com/octokit/octokit.net?branch=bar&pr=foo'
       )
       expect(result.name).to.equal('unknown')
     })
@@ -76,14 +76,14 @@ describe('parseAppURL', () => {
     it('returns unknown for invalid branch name', () => {
       // branch=<>
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/octokit/octokit.net?branch=%3C%3E'
+        'wevolver-mac://openRepo/https://github.com/octokit/octokit.net?branch=%3C%3E'
       )
       expect(result.name).to.equal('unknown')
     })
 
     it('adds file path if found', () => {
       const result = parseAppURL(
-        'github-mac://openRepo/https://github.com/octokit/octokit.net?branch=master&filepath=Octokit.Reactive%2FOctokit.Reactive.csproj'
+        'wevolver-mac://openRepo/https://github.com/octokit/octokit.net?branch=master&filepath=Octokit.Reactive%2FOctokit.Reactive.csproj'
       )
       expect(result.name).to.equal('open-repository-from-url')
 
@@ -104,7 +104,7 @@ describe('parseAppURL', () => {
         ? 'C:\\Users\\johnsmith\\repo'
         : '/Users/johnsmith/repo'
       const result = parseAppURL(
-        `x-github-client://openLocalRepo/${encodeURIComponent(path)}`
+        `x-wevolver-client://openLocalRepo/${encodeURIComponent(path)}`
       )
       expect(result.name).to.equal('open-repository-from-path')
 
@@ -113,10 +113,10 @@ describe('parseAppURL', () => {
     })
 
     it('deals with not having a local path', () => {
-      let result = parseAppURL(`x-github-client://openLocalRepo/`)
+      let result = parseAppURL(`x-wevolver-client://openLocalRepo/`)
       expect(result.name).to.equal('unknown')
 
-      result = parseAppURL(`x-github-client://openLocalRepo`)
+      result = parseAppURL(`x-wevolver-client://openLocalRepo`)
       expect(result.name).to.equal('unknown')
     })
   })
